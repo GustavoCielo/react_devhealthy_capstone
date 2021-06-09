@@ -5,7 +5,7 @@ import { Switch, Route } from "react-router-dom";
 // import Dashboard from "../pages/Dashboard";
 // import Habits from "../pages/Habits";
 // import Groups from "../pages/Groups";
-// import NotFound from "../pages/NotFound";
+import NotFound from "../pages/NotFound";
 
 const Routes = () => {
   return (
@@ -18,7 +18,9 @@ const Routes = () => {
       <Route path="/dashboard">{/* <Dashboard/> */}</Route>
       <Route path="/dashboard/habits">{/* <Habits/> */}</Route>
       <Route path="/dashboard/groups">{/* <Groups/> */}</Route>
-      <Route path="*">{/* <NotFound/> */}</Route>
+      <Route path="*">
+        <NotFound />
+      </Route>
     </Switch>
   );
 };
