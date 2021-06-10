@@ -1,5 +1,5 @@
 import { Switch, Route } from "react-router-dom";
-import LandingPage from "../pages/LandingPage";
+/* import LandingPage from "../pages/LandingPage"; */
 // import Login from "../pages/Login";
 // import Register from "../pages/Register";
 // import Dashboard from "../pages/Dashboard";
@@ -7,11 +7,14 @@ import LandingPage from "../pages/LandingPage";
 // import Groups from "../pages/Groups";
 import NotFound from "../pages/NotFound";
 
+import AllGroups from "../components/AllGroups";
+
 const Routes = () => {
   return (
     <Switch>
       <Route exact path="/">
-        <LandingPage />
+        {/* <LandingPage /> */}
+        <AllGroups />
       </Route>
       <Route path="/login">{/* <Login/> */}</Route>
       <Route path="/register">{/* <Register/> */}</Route>
