@@ -1,33 +1,40 @@
 import InputAdornment from "@material-ui/core/InputAdornment";
-import { InputStyled } from "./style";
+import { Container, InputStyled } from "./style";
 
 const Input = ({
   label,
   icon: Icon,
   register,
   name,
+  errorMsg = "",
   required = true,
+  pinkScheme = false,
   ...rest
 }) => {
   return (
-    <InputStyled
-      {...register(name)}
-      label={label}
-      placeholder={!!Icon && label}
-      InputProps={
-        Icon && {
-          startAdornment: (
-            <InputAdornment position="start">
-              <Icon />
-            </InputAdornment>
-          ),
+    <Container>
+      <InputStyled
+        {...register(name)}
+        label={label}
+        InputProps={
+          Icon && {
+            startAdornment: (
+              <InputAdornment position="start">
+                <Icon />
+              </InputAdornment>
+            ),
+          }
         }
-      }
-      variant="outlined"
-      color="primary"
-      {...rest}
-      required={required}
-    />
+        placeholder={label}
+        variant="standard"
+        color="primary"
+        {...rest}
+        required={required}
+        size="small"
+        pinkScheme={pinkScheme}
+      />
+      <div className="message"> {!!errorMsg && <span>{errorMsg}</span>}</div>
+    </Container>
   );
 };
 
