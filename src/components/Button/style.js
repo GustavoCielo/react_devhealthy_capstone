@@ -14,5 +14,6 @@ export const useStyles = makeStyles((theme) => ({
 }));
 
 export const ButtonStyled = styled(Button)`
-  color: #fafafa;
+  color: ${(props) => (props.grayText ? "#666666" : "#fafafa")};
+  min-width: 120px;
 `;

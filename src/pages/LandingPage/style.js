@@ -1,10 +1,31 @@
 import styled from "styled-components";
+import DevWoman from "../../assets/img/landing_page_woman.svg";
+import DevBoy from "../../assets/img/landing_page_boy.svg";
 
 export const ContainerStyled = styled.div`
-  width: 100vw;
-  height: 100vh;
+  width: 80%;
+  height: 100%;
 
+  margin: 0 auto;
+  padding: 20px 0;
   display: flex;
+
+  @media (max-width: 768px) {
+    .images {
+      display: none;
+    }
+
+    .controlers {
+      width: 80%;
+      margin: 0 auto;
+      h3 {
+        font-size: 1rem;
+      }
+      figure:first-child {
+        transform: translateY(10px);
+      }
+    }
+  }
 `;
 
 export const InternContainer = styled.div`
@@ -14,10 +35,23 @@ export const InternContainer = styled.div`
   align-items: center;
   justify-content: center;
 
-  padding: 40px;
+  .imagesBG {
+    width: 100%;
+    height: 50%;
+  }
+
+  .imagesBG:first-child {
+    background: url(${DevBoy}) no-repeat center;
+    background-size: contain;
+  }
+
+  .imagesBG:last-child {
+    background: url(${DevWoman}) no-repeat center;
+    background-size: contain;
+  }
 
   figure {
-    width: 100%;
+    width: 70%;
 
     img {
       width: 100%;
@@ -37,8 +71,6 @@ export const ContainerLogo = styled.div`
 
   figure {
     width: 30%;
-
-    margin: 0;
 
     img {
       width: 100%;

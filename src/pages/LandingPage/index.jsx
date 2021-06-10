@@ -6,9 +6,7 @@ import {
   InternContainer,
   ContainerLogo,
   ContainerControlers,
-} from "./index.js";
-import DevWoman from "../../assets/img/landing_page_woman.svg";
-import DevBoy from "../../assets/img/landing_page_boy.svg";
+} from "./style";
 import Logo_img from "../../assets/img/logo_img.svg";
 import Logo_desc from "../../assets/img/logo_desc.svg";
 import { useHistory } from "react-router";
@@ -23,15 +21,11 @@ const LandingPage = () => {
   return (
     <FullContainer>
       <ContainerStyled>
-        <InternContainer>
-          <figure>
-            <img src={DevBoy} alt="Dev Woman" />
-          </figure>
-          <figure>
-            <img src={DevWoman} alt="Dev Boy" />
-          </figure>
+        <InternContainer className="images">
+          <div className="imagesBG"></div>
+          <div className="imagesBG"></div>
         </InternContainer>
-        <InternContainer>
+        <InternContainer className="controlers">
           <ContainerLogo>
             <figure>
               <img src={Logo_img} alt="Logo" />
