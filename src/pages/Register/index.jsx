@@ -3,11 +3,16 @@ import Button from "../../components/Button";
 import Form from "../../components/Form";
 import Logo from "../../components/Logo";
 import FullContainer from "../../components/FullContainer";
-import { BackgroundContainer, MainContainer, FormContainer, LinkStyle } from "./style";
+import {
+  BackgroundContainer,
+  MainContainer,
+  FormContainer,
+  LinkStyle,
+} from "./style";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { Redirect } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 import { useAuth } from "../../contexts/Auth";
 import PersonIcon from "@material-ui/icons/Person";
 import EmailIcon from "@material-ui/icons/Email";
@@ -15,10 +20,7 @@ import LockIcon from "@material-ui/icons/Lock";
 
 const Register = () => {
   const { signup, isAuthenticated } = useAuth();
-
-  if (isAuthenticated) {
-    <Redirect to="/dashboard" />;
-  }
+  const history = useHistory();
 
   const schema = yup.object().shape({
     username: yup
@@ -49,8 +51,12 @@ const Register = () => {
     console.log(username, email, password);
     const user = { username, email, password };
 
-    signup(user);
+    signup(user, history);
   };
+
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />;
+  }
 
   return (
     <FullContainer>

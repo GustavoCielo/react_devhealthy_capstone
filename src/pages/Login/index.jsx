@@ -1,4 +1,4 @@
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import { Container, ContainerForm, Text, LinkStyle } from "./style";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -14,10 +14,7 @@ import LockIcon from "@material-ui/icons/Lock";
 
 const Login = () => {
   const { isAuthenticated, login } = useAuth();
-
-  if (isAuthenticated) {
-    <Redirect to="/dashboard" />;
-  }
+  const history = useHistory();
 
   const schema = yup.object().shape({
     username: yup
@@ -37,8 +34,12 @@ const Login = () => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const handleLogin = (data) => {
-    login(data)
+    login(data, history);
   };
+
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />;
+  }
 
   return (
     <FullContainer>
@@ -57,14 +58,17 @@ const Login = () => {
             <Input
               label="Senha"
               icon={LockIcon}
-              type='password'
+              type="password"
               register={register}
               name="password"
               error={!!errors.password}
               errorMsg={errors.password?.message}
             />
             <Button type="submit">Entrar</Button>
-            <Text>Não é cadastrado? <LinkStyle to='/register'>Criar conta</LinkStyle></Text>
+            <Text>
+              Não é cadastrado?{" "}
+              <LinkStyle to="/register">Criar conta</LinkStyle>
+            </Text>
           </Form>
         </ContainerForm>
       </Container>
