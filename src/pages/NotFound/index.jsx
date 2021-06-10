@@ -7,15 +7,15 @@ import { Container, Content } from "./style";
 
 const NotFound = () => {
   const history = useHistory();
-  const { token } = useAuth();
+  const { isAuthenticated } = useAuth();
   const [move, setMove] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e) => {
     setMove({ x: e.clientX / 5, y: e.clientY / 5 });
   };
 
-  const goToLandingPage = () => {
-    if (token) {
+  const redirectToHome = () => {
+    if (isAuthenticated) {
       history.push("/dashboard");
     } else {
       history.push("/");
@@ -33,7 +33,7 @@ const NotFound = () => {
             digitado incorretamente o endereço ou a página pode ter sido movida.
           </p>
         </div>
-        <Button onClick={goToLandingPage} size="large" startIcon={<HomeIcon />}>
+        <Button onClick={redirectToHome} size="large" startIcon={<HomeIcon />}>
           Voltar ao início
         </Button>
       </Content>

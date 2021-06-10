@@ -7,6 +7,7 @@ import GlobalStyle from "./styles/global";
 import Routes from "./routes";
 import { AuthProvider } from "./contexts/Auth";
 
+
 const App = () => {
   return (
     <ThemeProvider theme={theme}>

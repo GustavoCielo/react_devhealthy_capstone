@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
 export const Header = styled.header`
-  width: 100%;
-  display: flex;
-  justify-content: flex-start;
-  padding-top: 16px;
+    width: 100%;
+    padding-top: 16px;
+    max-height: 65px;
+    display: flex;
+    justify-content: flex-start;
 
   @media (max-width: 425px) {
     justify-content: center;

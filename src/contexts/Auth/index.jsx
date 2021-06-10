@@ -11,20 +11,41 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(!!token);
   const history = useHistory();
 
-  const signup = (user) => {
-    console.log(user);
+  const signup = (data) => {
     api
-      .post("users/", user)
-      .then((_) => {
+      .post("users/", data)
+      .then((response) => {
         toast.success("Sucesso ao criar a conta! Faça seu login :D");
         history.push("/login");
       })
-      .catch((_) => toast.error("Usuário já existe."));
+      .catch((error) => toast.error("Usuário já existe."));
+  };
+
+  const login = (data) => {
+    api
+      .post("/sessions/", data)
+      .then((response) => {
+        localStorage.setItem("@Dev:token", response.data.access);
+        history.push("/dashboard");
+      })
+      .catch((error) => console.log(error));
+  };
+
+  const logout = () => {
+    localStorage.removeItem("@Dev:token");
+    setIsAuthenticated(false);
+    history.push("/");
   };
 
   return (
     <AuthContext.Provider
-      value={{ token: isAuthenticated, setIsAuthenticated, signup }}
+      value={{
+        token,
+        isAuthenticated,
+        signup,
+        login,
+        logout,
+      }}
     >
       {children}
     </AuthContext.Provider>

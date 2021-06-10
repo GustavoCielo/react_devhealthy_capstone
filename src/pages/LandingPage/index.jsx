@@ -1,6 +1,5 @@
 import FullContainer from "../../components/FullContainer/index.jsx";
 import Button from "../../components/Button/index.jsx";
-
 import {
   ContainerStyled,
   InternContainer,
@@ -9,9 +8,16 @@ import {
 } from "./style";
 import Logo_img from "../../assets/img/logo_img.svg";
 import Logo_desc from "../../assets/img/logo_desc.svg";
-import { useHistory } from "react-router";
+import { useHistory, Redirect } from "react-router";
+import { useAuth } from "../../contexts/Auth";
 
 const LandingPage = () => {
+  const { isAuthenticated } = useAuth();
+
+  if (isAuthenticated) {
+    <Redirect to="/dashboard" />;
+  }
+
   const history = useHistory();
 
   const handleNavigation = (path) => {
