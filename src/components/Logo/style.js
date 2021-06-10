@@ -17,6 +17,7 @@ export const Figure = styled.figure`
   padding: 0;
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
 export const ImageIcon = styled.img`
