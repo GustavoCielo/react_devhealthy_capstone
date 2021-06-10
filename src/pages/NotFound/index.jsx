@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import FullContainer from "../../components/FullContainer";
+import HomeIcon from "@material-ui/icons/Home";
 import Button from "../../components/Button";
+import { useAuth } from "../../contexts/Auth";
 import { Container, Content } from "./style";
 
 const NotFound = () => {
   const history = useHistory();
-
+  const { token } = useAuth();
   const [move, setMove] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e) => {
@@ -14,23 +15,29 @@ const NotFound = () => {
   };
 
   const goToLandingPage = () => {
-    history.push("/");
+    if (token) {
+      history.push("/dashboard");
+    } else {
+      history.push("/");
+    }
   };
 
   return (
-    <FullContainer>
-      <Container onMouseMove={handleMouseMove} move={move}>
-        <Content>
-          <h2>404</h2>
+    <Container onMouseMove={handleMouseMove} move={move}>
+      <Content>
+        <h2>404</h2>
+        <div>
           <h4>OPS! Página não encontrada</h4>
           <p>
             A página que você estava procurando não existe. Você pode ter
             digitado incorretamente o endereço ou a página pode ter sido movida.
           </p>
-          <Button onClick={goToLandingPage}>Voltar para o início</Button>
-        </Content>
-      </Container>
-    </FullContainer>
+        </div>
+        <Button onClick={goToLandingPage} size="large" startIcon={<HomeIcon />}>
+          Voltar ao início
+        </Button>
+      </Content>
+    </Container>
   );
 };
 
