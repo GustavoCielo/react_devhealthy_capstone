@@ -3,20 +3,20 @@ import Button from "../../components/Button";
 import Form from "../../components/Form";
 import Logo from "../../components/Logo";
 import FullContainer from "../../components/FullContainer";
-import { BackgroundContainer, MainContainer, FormContainer } from "./style";
+import { BackgroundContainer, MainContainer, FormContainer, LinkStyle } from "./style";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { useAuth } from "../../contexts/Auth";
 import PersonIcon from "@material-ui/icons/Person";
 import EmailIcon from "@material-ui/icons/Email";
 import LockIcon from "@material-ui/icons/Lock";
 
 const Register = () => {
-  const { signup, token } = useAuth();
+  const { signup, isAuthenticated } = useAuth();
 
-  if (token) {
+  if (isAuthenticated) {
     <Redirect to="/dashboard" />;
   }
 
@@ -105,7 +105,7 @@ const Register = () => {
               <p>
                 Já está cadastrado?{" "}
                 <span>
-                  <Link to="/login">Entrar na Conta</Link>
+                  <LinkStyle to="/login">Entrar na Conta</LinkStyle>
                 </span>
               </p>
             </Form>
