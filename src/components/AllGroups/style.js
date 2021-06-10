@@ -22,4 +22,6 @@ export const ButtonStyled = styled.button`
   border: none;
 
   font-size: 5rem;
+  outline: none;
+  cursor: pointer;
 `;
