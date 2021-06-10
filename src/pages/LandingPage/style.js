@@ -103,7 +103,17 @@ export const ContainerControlers = styled.div`
   justify-content: flex-start;
   align-items: center;
 
+<<<<<<< HEAD
   Button {
     margin-top: 40px;
   }
+=======
+  Button:first-child {
+    margin-top: 40px;
+  }
+
+  Button:last-child {
+    margin-top: 20px;
+  }
+>>>>>>> 1e92b465a758030fab9ee5a6a5f46a7296d70427
 `;
