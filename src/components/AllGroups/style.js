@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const ContainerStyled = styled.div`
   width: 100%;
-  background-color: white;
+  height: 400px;
 
   display: flex;
   justify-content: space-between;
@@ -15,4 +15,11 @@ export const ContainerGroups = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+`;
+
+export const ButtonStyled = styled.button`
+  background-color: #f6efee;
+  border: none;
+
+  font-size: 5rem;
 `;

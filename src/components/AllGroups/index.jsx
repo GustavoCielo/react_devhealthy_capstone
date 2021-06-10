@@ -1,6 +1,9 @@
 import GroupCard from "../GroupCard";
 
-import { ContainerGroups, ContainerStyled } from "./style.js";
+import { ContainerGroups, ContainerStyled, ButtonStyled } from "./style.js";
+
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 
 import api from "../../services/api";
 import { useState } from "react";
@@ -40,11 +43,13 @@ const AllGroups = () => {
   return (
     <ContainerStyled>
       {previous !== null ? (
-        <button onClick={handlePrev}>Voltar</button>
+        <ButtonStyled onClick={handlePrev}>
+          <ArrowBackIosIcon fontSize="large" color="primary" />
+        </ButtonStyled>
       ) : (
-        <button onClick={handlePrev} disabled>
-          Voltar
-        </button>
+        <ButtonStyled onClick={handlePrev} disabled>
+          <ArrowBackIosIcon fontSize="large" color="gray" />
+        </ButtonStyled>
       )}
       <ContainerGroups>
         {groups.map((group) => {
@@ -52,11 +57,13 @@ const AllGroups = () => {
         })}
       </ContainerGroups>
       {next !== null ? (
-        <button onClick={handleNext}>Avançar</button>
+        <ButtonStyled onClick={handleNext}>
+          <ArrowForwardIosIcon fontSize="large" color="primary" />
+        </ButtonStyled>
       ) : (
-        <button onClick={handleNext} disabled>
-          Avançar
-        </button>
+        <ButtonStyled onClick={handleNext} disabled>
+          <ArrowForwardIosIcon fontSize="large" color="gray" />
+        </ButtonStyled>
       )}
     </ContainerStyled>
   );
