@@ -1,17 +1,20 @@
-import { createContext, useContext, useState } from "react";
-import { useHistory } from "react-router";
+import { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import api from "../../services/api";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const token = localStorage.getItem("@Dev:token") || "";
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const [isAuthenticated, setIsAuthenticated] = useState(!!token);
-  const history = useHistory();
+  useEffect(() => {
+    const token = JSON.parse(localStorage.getItem("@Dev:token"));
+    if (token) {
+      setIsAuthenticated(true);
+    }
+  }, [isAuthenticated]);
 
-  const signup = (data) => {
+  const signup = (data, history) => {
     api
       .post("users/", data)
       .then((response) => {
@@ -21,11 +24,16 @@ export const AuthProvider = ({ children }) => {
       .catch((error) => toast.error("Usuário já existe."));
   };
 
-  const login = (data) => {
+  const login = (data, history) => {
     api
       .post("/sessions/", data)
       .then((response) => {
-        localStorage.setItem("@Dev:token", response.data.access);
+        localStorage.removeItem("@Dev:token");
+        localStorage.setItem(
+          "@Dev:token",
+          JSON.stringify(response.data.access)
+        );
+        setIsAuthenticated(true);
         history.push("/dashboard");
       })
       .catch((error) => console.log(error));
@@ -34,13 +42,11 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     localStorage.removeItem("@Dev:token");
     setIsAuthenticated(false);
-    history.push("/");
   };
 
   return (
     <AuthContext.Provider
       value={{
-        token,
         isAuthenticated,
         signup,
         login,

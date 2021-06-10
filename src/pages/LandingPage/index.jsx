@@ -8,21 +8,21 @@ import {
 } from "./style";
 import Logo_img from "../../assets/img/logo_img.svg";
 import Logo_desc from "../../assets/img/logo_desc.svg";
-import { useHistory, Redirect } from "react-router";
+import { useHistory, Redirect } from "react-router-dom";
 import { useAuth } from "../../contexts/Auth";
 
 const LandingPage = () => {
   const { isAuthenticated } = useAuth();
-
-  if (isAuthenticated) {
-    <Redirect to="/dashboard" />;
-  }
 
   const history = useHistory();
 
   const handleNavigation = (path) => {
     history.push(path);
   };
+
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />;
+  }
 
   return (
     <FullContainer>
