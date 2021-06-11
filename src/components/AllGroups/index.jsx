@@ -1,70 +1,46 @@
 import GroupCard from "../GroupCard";
+import { ContainerGroups, ContainerStyled } from "./style.js";
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 
-import { ContainerGroups, ContainerStyled, ButtonStyled } from "./style.js";
-
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
-
-import api from "../../services/api";
-import { useState } from "react";
-import { useEffect } from "react";
+import FloatButton from "../FloatButton";
+import Modal from "../Modal";
+import { useModal } from "../../contexts/Modal";
+import { useGroups } from "../../contexts/Groups";
 
 const AllGroups = () => {
-  const [groups, setGroups] = useState([]);
-  const [url] = useState("/groups/");
-  const [next, setNext] = useState("");
-  const [previous, setPrevious] = useState("");
+  const { groups, handleNext, handlePrev, previous, next } = useGroups();
+  const { isVisible, handleModal } = useModal();
 
-  const getGroups = (url) => {
-    api
-      .get(url)
-      .then((res) => {
-        setGroups(res.data.results);
-        setNext(res.data.next);
-        setPrevious(res.data.previous);
-      })
-      .catch((err) => console.log(err));
-  };
-
-  useEffect(() => {
-    getGroups(url);
-  }, []);
-
-  const handleNext = () => {
-    getGroups(next);
-  };
-
-  const handlePrev = () => {
-    if (previous !== null) {
-      getGroups(previous);
-    }
+  const handleClick = () => {
+    handleModal();
   };
 
   return (
     <ContainerStyled>
-      {previous !== null ? (
-        <ButtonStyled onClick={handlePrev}>
-          <ArrowBackIosIcon fontSize="large" color="primary" />
-        </ButtonStyled>
-      ) : (
-        <ButtonStyled onClick={handlePrev} disabled>
-          <ArrowBackIosIcon fontSize="large" color="gray" />
-        </ButtonStyled>
-      )}
+      <FloatButton
+        title="Voltar"
+        icon={MdKeyboardArrowLeft}
+        onClick={handlePrev}
+        disabled={!previous ?? true}
+      />
       <ContainerGroups>
         {groups.map((group) => {
-          return <GroupCard key={group.id} name={group.name} />;
+          return (
+            <GroupCard
+              key={group.id}
+              name={group.name}
+              handleClick={handleClick}
+            />
+          );
         })}
       </ContainerGroups>
-      {next !== null ? (
-        <ButtonStyled onClick={handleNext}>
-          <ArrowForwardIosIcon fontSize="large" color="primary" />
-        </ButtonStyled>
-      ) : (
-        <ButtonStyled onClick={handleNext} disabled>
-          <ArrowForwardIosIcon fontSize="large" color="gray" />
-        </ButtonStyled>
-      )}
+      <FloatButton
+        title="Avançar"
+        icon={MdKeyboardArrowRight}
+        onClick={handleNext}
+        disabled={!next ?? true}
+      />
+      {isVisible && <Modal>Teste</Modal>}
     </ContainerStyled>
   );
 };

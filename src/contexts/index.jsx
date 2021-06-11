@@ -1,10 +1,13 @@
 import { AuthProvider } from "./Auth";
 import { ModalProvider } from "./Modal";
+import { GroupsProvider } from "./Groups";
 
 const ContextProvider = ({ children }) => {
   return (
     <AuthProvider>
-      <ModalProvider>{children}</ModalProvider>
+      <GroupsProvider>
+        <ModalProvider>{children}</ModalProvider>
+      </GroupsProvider>
     </AuthProvider>
   );
 };

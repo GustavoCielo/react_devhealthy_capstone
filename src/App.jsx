@@ -6,13 +6,19 @@ import { theme } from "./styles/theme";
 import GlobalStyle from "./styles/global";
 import Routes from "./routes";
 
+import FullContainer from "./components/FullContainer";
+import AllGroups from "./components/AllGroups";
+
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <GlobalStyle />
       <ToastContainer />
-      <Routes />
+      {/* <Routes /> */}
+      <FullContainer>
+        <AllGroups />
+      </FullContainer>
     </ThemeProvider>
   );
 };

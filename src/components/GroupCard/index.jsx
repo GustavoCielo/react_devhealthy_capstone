@@ -2,10 +2,10 @@ import ImageGroup from "../../assets/img/image_group.svg";
 
 import { ContainerCard } from "./style.js";
 
-const GroupCard = ({ name }) => {
+const GroupCard = ({ name, handleClick }) => {
   return (
     <>
-      <ContainerCard>
+      <ContainerCard onClick={handleClick}>
         <figure>
           <img src={ImageGroup} alt="nome do grupo" />
         </figure>
