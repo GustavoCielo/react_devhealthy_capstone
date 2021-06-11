@@ -1,25 +1,17 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-    width: 200px;
+    width: ${({width}) => width};
     height: 100%;
     background-color:  rgba(226, 182, 207, 0.46);
     border-radius: 10px;
     padding: 16px;
+    display: flex;
+    flex-direction: column;
 
     h3 {
         text-align: center;
-        padding: 10px;
         color: #666666;
-        font-weight: 700;
+        margin-bottom: 20px;
     }
-`
-export const ContainerComponent = styled.div`
-    color: #666666;
-    flex-wrap: wrap;
-
-    div {
-        margin: 15px;
-    }
-    
 `

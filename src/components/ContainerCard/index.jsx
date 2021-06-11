@@ -1,10 +1,10 @@
-import { Container, ContainerComponent } from "./style";
+import { Container } from "./style";
 
-const ContainerCard = ({ children, title }) => {
+const ContainerCard = ({ children, title, width }) => {
   return (
-    <Container>
-      <h3>Title</h3>
-      <ContainerComponent>elemento</ContainerComponent>
+    <Container width={width}>
+      <h3>{title}</h3>
+      {children}
     </Container>
   );
 };
