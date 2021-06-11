@@ -5,7 +5,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { theme } from "./styles/theme";
 import GlobalStyle from "./styles/global";
 import Routes from "./routes";
-import { AuthProvider } from "./contexts/Auth";
 
 const App = () => {
   return (
@@ -13,9 +12,7 @@ const App = () => {
       <CssBaseline />
       <GlobalStyle />
       <ToastContainer />
-      <AuthProvider>
-        <Routes />
-      </AuthProvider>
+      <Routes />
     </ThemeProvider>
   );
 };
