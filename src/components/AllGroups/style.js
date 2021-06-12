@@ -1,4 +1,12 @@
 import styled from "styled-components";
+import { makeStyles } from "@material-ui/core/styles";
+
+export const useStyles = makeStyles((theme) => ({
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 2,
+    color: "#fff",
+  },
+}));
 
 export const ContainerStyled = styled.div`
   width: 100%;
@@ -39,6 +47,7 @@ export const ContainerGroups = styled.div`
 
 export const InternContainer = styled.div`
   width: 530px;
+  max-height: 350px;
 
   .Header {
     display: flex;
