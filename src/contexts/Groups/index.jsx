@@ -5,7 +5,7 @@ export const GroupsContext = createContext();
 
 export const GroupsProvider = ({ children }) => {
   const [groups, setGroups] = useState([]);
-  const [url] = useState("groups/?page=1&category=DevHealthy"); //https://kabit-api.herokuapp.com/groups/?page=1&category=DevHealthy
+  const [url] = useState("groups/?page=1&category=DevHealthy");
   const [next, setNext] = useState("");
   const [previous, setPrevious] = useState("");
 
