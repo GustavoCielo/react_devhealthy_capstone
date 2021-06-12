@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import bg from "../../assets/img/bg.svg";
+<<<<<<< HEAD
+=======
 import { Link } from "react-router-dom";
+>>>>>>> develop
 
 export const BackgroundContainer = styled.div`
   @media (min-width: 768px) {
@@ -22,6 +25,17 @@ export const FormContainer = styled.div`
   height: 100%;
   form {
     p {
+<<<<<<< HEAD
+      font-family: "Roboto", sans-serif;
+      font-size: 0.7rem;
+    }
+    span {
+      font-weight: 700;
+      font-size: 0.7rem;
+    }
+  }
+`;
+=======
       padding-top: 10px;
       font-family: "Roboto", sans-serif;
       font-size: 0.7rem;
@@ -46,3 +60,4 @@ export const LinkStyle = styled(Link)`
     text-decoration: none;
   }
 `;
+>>>>>>> develop
