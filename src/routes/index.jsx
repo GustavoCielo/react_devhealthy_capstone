@@ -13,8 +13,12 @@ const Routes = () => {
       <Route exact path="/">
         <LandingPage />
       </Route>
-      <Route path="/login"><Login/></Route>
-      <Route path="/register"><Register /></Route>
+      <Route path="/login">
+        <Login />
+      </Route>
+      <Route path="/register">
+        <Register />
+      </Route>
       <Route path="/dashboard">{/* <Dashboard/> */}</Route>
       <Route path="/dashboard/habits">{/* <Habits/> */}</Route>
       <Route path="/dashboard/groups">{/* <Groups/> */}</Route>

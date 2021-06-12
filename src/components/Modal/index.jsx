@@ -10,7 +10,7 @@ const Modal = ({ children }) => {
     <>
       {isVisible && (
         <ModalContainer>
-          <div>
+          <div className="modal">
             <FloatButton
               icon={CloseIcon}
               title="Fechar"

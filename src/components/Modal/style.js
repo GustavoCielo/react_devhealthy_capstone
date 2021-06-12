@@ -9,10 +9,12 @@ export const ModalContainer = styled.div`
   display: grid;
   place-items: center;
 
-  div {
+  .modal {
     padding: 16px;
     display: flex;
     flex-direction: column;
+    gap: 8px;
+    text-align: center;
     background-color: #e2b6cf;
     position: relative;
     border-radius: 12px;
