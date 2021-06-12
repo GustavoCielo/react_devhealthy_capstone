@@ -36,3 +36,42 @@ export const ContainerGroups = styled.div`
     }
   }
 `;
+
+export const InternContainer = styled.div`
+  width: 530px;
+
+  .Header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px;
+
+    figure {
+      width: 60px;
+
+      margin-right: 10px;
+      img {
+        width: 100%;
+      }
+    }
+
+    h4 {
+      font-size: 1.3rem;
+      width: 80%;
+      text-align: center;
+    }
+  }
+
+  .Body {
+    padding: 5px;
+    span {
+      margin-right: 5px;
+      font-weight: 600;
+    }
+  }
+
+  Button {
+    width: 50px;
+    margin: 0 auto;
+  }
+`;
