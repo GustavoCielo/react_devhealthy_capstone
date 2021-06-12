@@ -5,7 +5,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { theme } from "./styles/theme";
 import GlobalStyle from "./styles/global";
 import Routes from "./routes";
-
 import FullContainer from "./components/FullContainer";
 import AllGroups from "./components/AllGroups";
 
@@ -15,7 +14,7 @@ const App = () => {
       <CssBaseline />
       <GlobalStyle />
       <ToastContainer />
-      {/* <Routes /> */}
+      <Routes />
       <FullContainer>
         <AllGroups />
       </FullContainer>
