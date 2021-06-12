@@ -19,7 +19,7 @@ const Routes = () => {
       <Route path="/register">
         <Register />
       </Route>
-      <Route path="/dashboard">{/* <Dashboard/> */}</Route>
+      <Route exact path="/dashboard">{/* <Dashboard/> */}</Route>
       <Route path="/dashboard/habits">{/* <Habits/> */}</Route>
       <Route path="/dashboard/groups">{/* <Groups/> */}</Route>
       <Route path="*">

@@ -5,8 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { theme } from "./styles/theme";
 import GlobalStyle from "./styles/global";
 import Routes from "./routes";
-import FullContainer from "./components/FullContainer";
-import AllGroups from "./components/AllGroups";
+import HabitCard from "./components/HabitCard"
 
 const App = () => {
   return (
@@ -14,10 +13,8 @@ const App = () => {
       <CssBaseline />
       <GlobalStyle />
       <ToastContainer />
-      <Routes />
-      <FullContainer>
-        <AllGroups />
-      </FullContainer>
+      {/* <Routes /> */}
+      <HabitCard/>
     </ThemeProvider>
   );
 };

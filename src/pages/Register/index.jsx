@@ -48,7 +48,6 @@ const Register = () => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const submitFunc = ({ username, email, password }) => {
-    console.log(username, email, password);
     const user = { username, email, password };
 
     signup(user, history);
