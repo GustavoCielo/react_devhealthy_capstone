@@ -1,11 +1,11 @@
 import { FabStyled, LightTooltip } from "./style";
 import Zoom from "@material-ui/core/Zoom";
 
-const FloatButton = ({ icon: Icon, title, greenIcon = false, ...rest }) => {
+const FloatButton = ({ icon: Icon, title, greenIcon = false, placement = "top", ...rest }) => {
   return (
     <LightTooltip
       title={title}
-      placement="top"
+      placement={placement}
       arrow
       TransitionComponent={Zoom}
     >
