@@ -108,6 +108,11 @@ export const ContainerControlers = styled.div`
     font-size: 1.5rem;
   }
 
+<<<<<<< HEAD
+  Button {
+    margin-top: 40px;
+  }
+=======
   Button:first-child {
     margin-top: 40px;
   }
@@ -115,4 +120,5 @@ export const ContainerControlers = styled.div`
   Button:last-child {
     margin-top: 20px;
   }
+>>>>>>> 1e92b465a758030fab9ee5a6a5f46a7296d70427
 `;
