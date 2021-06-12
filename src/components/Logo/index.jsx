@@ -8,7 +8,7 @@ const Logo = () => {
 
   return (
     <Header>
-      <Figure onClick={() => history.push('/')}>
+      <Figure onClick={() => history.push("/")}>
         <ImageIcon src={iconLogo} alt="Ícone Logo Dev Healthy" />
         <Image src={logo} alt="Logo Dev Healthy" />
       </Figure>
