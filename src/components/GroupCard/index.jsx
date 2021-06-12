@@ -9,7 +9,6 @@ const GroupCard = ({ name, handleClick }) => {
         <figure>
           <img src={ImageGroup} alt="nome do grupo" />
         </figure>
-        {/* <h4>{name.length > 10 ? `${name.substring(0, 10)} [...]` : name} </h4> */}
         <p>{name}</p>
       </ContainerCard>
     </>

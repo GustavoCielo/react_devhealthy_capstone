@@ -39,7 +39,6 @@ const AllGroups = () => {
   };
 
   const handleEnterGroup = (id) => {
-    //dar o pull e chamar o state do Token para não precisar dar o getItem novamente;
     const token = JSON.parse(localStorage.getItem("@Dev:token"));
     api
       .post(`https://kabit-api.herokuapp.com/groups/${id}/subscribe/`, null, {
