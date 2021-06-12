@@ -25,4 +25,14 @@ export const ContainerCard = styled.div`
     font-size: 1.2rem;
     font-weight: 400;
   }
+
+  p {
+    font-size: 0.8rem;
+  }
+
+  :hover {
+    background-color: #e9c9d9;
+    cursor: pointer;
+    border-radius: 10px;
+  }
 `;
