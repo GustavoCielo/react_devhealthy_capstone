@@ -23,16 +23,20 @@ export const UserProvider = ({ children }) => {
       .catch((error) => console.log(error));
   };
 
+  const getGroups = () => {
+    api
+      .get("groups/subscriptions/", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => setUserGroups(response.data))
+      .catch((error) => console.log(error));
+  };
+
   useEffect(() => {
     if (isAuthenticated) {
-      api
-        .get("groups/subscriptions/", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((response) => setUserGroups(response.data))
-        .catch((error) => console.log(error));
+      getGroups();
     }
   }, [isAuthenticated]);
 

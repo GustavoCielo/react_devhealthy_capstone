@@ -28,6 +28,8 @@ export const ContainerCard = styled.div`
 
   p {
     font-size: 0.8rem;
+    flex-grow: 1;
+    text-align: center;
   }
 
   :hover {
