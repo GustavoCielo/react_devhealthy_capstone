@@ -1,6 +1,5 @@
-import ImageGroup from "../../assets/img/image_group.svg";
-
 import { ContainerCard } from "./style.js";
+import ImageGroup from "../../assets/img/image_group.svg";
 
 const GroupCard = ({ name, handleClick }) => {
   return (

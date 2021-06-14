@@ -5,7 +5,7 @@ import api from "../../services/api";
 const UserGroupsContext = createContext();
 
 export const UserGroupsProvider = ({ children }) => {
-  const { userGroups, getGroups, token } = useUser();
+  const { token } = useUser();
 
   const createGroup = (data) => {
     api
@@ -20,8 +20,6 @@ export const UserGroupsProvider = ({ children }) => {
   return (
     <UserGroupsContext.Provider
       value={{
-        userGroups,
-        getGroups,
         createGroup,
       }}
     >

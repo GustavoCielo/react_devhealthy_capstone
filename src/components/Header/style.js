@@ -1,9 +1,17 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import headerBG from "../../assets/img/headerBG.svg";
+
+const fadeIn = keyframes`
+  to {
+    opacity: 1;
+  }
+
+`;
 
 export const Container = styled.header`
   width: 100%;
   height: 35%;
+  max-height: 200px;
   padding: 0 10px;
   background-color: #8ecc8e;
 
@@ -45,17 +53,17 @@ export const Container = styled.header`
       }
     }
 
-    div:last-child {
+    .userMenu {
       width: 100%;
       flex-grow: 1;
       display: flex;
       position: relative;
 
-      div {
+      .navTabs {
         width: 50%;
       }
 
-      div:first-child,
+      .navTabs,
       .welcomeWrapper {
         display: flex;
         flex-direction: column;
@@ -67,45 +75,19 @@ export const Container = styled.header`
         padding: 0 0 40px 60px;
         align-items: flex-start;
         justify-content: center;
+        opacity: 0;
+        animation: ${fadeIn} 2s forwards 500ms;
 
         p:last-child {
           font-weight: bold;
+          text-transform: uppercase;
         }
       }
 
       .imageBG {
         background: url(${headerBG}) no-repeat center;
         background-size: contain;
-      }
-    }
-  }
-`;
-
-export const TabMenu = styled.nav`
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  z-index: 1;
-
-  ul {
-    display: flex;
-
-    li {
-      padding: 4px 16px;
-      border-radius: 8px 8px 0 0;
-      a {
-        font-size: 1.2rem;
-        text-transform: uppercase;
-        color: #fafafa;
-        transition: color 300ms ease-in-out;
-
-        &:hover {
-          color: #e365c1;
-        }
-
-        @media (max-width: 767px) {
-          font-size: 0.8rem;
-        }
+        width: 50%;
       }
     }
   }

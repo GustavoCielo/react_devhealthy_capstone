@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import api from "../../services/api";
+import { toast } from "react-toastify";
 import { useAuth } from "../Auth";
+import api from "../../services/api";
 import jwt_decode from "jwt-decode";
 
 const UserContext = createContext();
@@ -48,7 +49,7 @@ export const UserProvider = ({ children }) => {
         },
       })
       .then((response) => getProfile())
-      .catch((error) => console.log(error));
+      .catch((error) => toast.error("Usuário já existe."));
   };
 
   const getHabits = () => {
@@ -62,15 +63,59 @@ export const UserProvider = ({ children }) => {
       .catch((error) => console.log(error));
   };
 
-  const updateHabit = (habitId, howMuch) => {
+  const createHabit = (data) => {
     api
-      .patch(`habits/${habitId}/`, howMuch, {
+      .post("habits/", data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((response) => getHabits())
+      .then((response) => {
+        getHabits();
+      })
       .catch((error) => console.log(error));
+  };
+
+  const updateHabit = (habitId, date) => {
+    const habitsData = JSON.parse(localStorage.getItem("@Dev:habits")) || [];
+
+    if (!habitsData.find((user) => user.user === id)) {
+      habitsData.push({
+        user: id,
+        habits: [],
+      });
+    }
+
+    const userHabits = habitsData.find((user) => user.user === id);
+
+    if (!userHabits.habits.find((habit) => habit.id === habitId)) {
+      userHabits.habits.push({ id: habitId, updatedDate: "", achieved: 0 });
+    }
+    const findHabit = userHabits.habits.find((habit) => habit.id === habitId);
+
+    if (findHabit.updatedDate === date) {
+      toast.warning("Você já completou esse hábito hoje :D");
+    } else {
+      findHabit.updatedDate = date;
+      findHabit.achieved += 5;
+      const achieved = findHabit.achieved;
+
+      const data = {
+        how_much_achieved: achieved,
+        achieved: achieved === 100 ? true : false,
+      };
+
+      api
+        .patch(`habits/${habitId}/`, data, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => getHabits())
+        .catch((error) => console.log(error));
+    }
+
+    localStorage.setItem("@Dev:habits", JSON.stringify(habitsData));
   };
 
   const deleteHabit = (habitId) => {
@@ -91,10 +136,12 @@ export const UserProvider = ({ children }) => {
         id,
         user,
         userGroups,
+        getGroups,
         getProfile,
         updateProfile,
         habits,
         getHabits,
+        createHabit,
         updateHabit,
         deleteHabit,
       }}

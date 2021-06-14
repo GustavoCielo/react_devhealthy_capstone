@@ -1,29 +1,49 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { MenuItem, Menu } from "@material-ui/core";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Container, TabMenu } from "./style";
+import { Container } from "./style";
 import { useAuth } from "../../contexts/Auth";
 import { useUser } from "../../contexts/User";
-import { useModal } from "../../contexts/Modal";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import SettingsIcon from "@material-ui/icons/Settings";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import EditIcon from "@material-ui/icons/Edit";
+import CloseIcon from "@material-ui/icons/Close";
+import DoneIcon from "@material-ui/icons/Done";
 import iconLogo from "../../assets/img/iconLogo.svg";
 import FloatButton from "../FloatButton";
-import Modal from "../Modal";
+import Form from "../Form";
 import Input from "../Input";
-import Button from "../Button";
+import NavBar from "../NavBar";
+import { toast } from "react-toastify";
+import Backdrop from "../Backdrop";
 
 const Header = () => {
   const [isOpened, setIsOpened] = useState(null);
+  const [greeting, setGreeting] = useState("");
+  const [open, setOpen] = useState(false);
 
   const { logout } = useAuth();
   const { user, updateProfile } = useUser();
-  const { handleModal } = useModal();
+
+  useEffect(() => {
+    const todayDate = new Date();
+    const time = todayDate.getHours();
+
+    if (time < 6) {
+      return setGreeting("Boa madrugada");
+    }
+    if (time < 12) {
+      return setGreeting("Bom dia");
+    }
+    if (time < 18) {
+      return setGreeting("Boa tarde");
+    }
+
+    return setGreeting("Boa noite");
+  }, []);
 
   const schema = yup.object().shape({
     username: yup
@@ -31,8 +51,8 @@ const Header = () => {
       .min(3, "Mínimo de 3 letras")
       .max(12, "máximo de 12 letras")
       .matches(
-        "^(?=.{3,12}$)(?![_. ])(?!.*[_. ]{2})[a-zA-Z]+(?<![_. ])$",
-        "Somente letras"
+        "^(?=.{3,12}$)(?![_. ])(?!.*[_. ]{2})[a-z]+(?<![_. ])$",
+        "Somente letras minúsculas"
       ),
     email: yup.string().email("E-mail inválido"),
   });
@@ -54,16 +74,34 @@ const Header = () => {
     setIsOpened(null);
   };
 
+  const toogleMenuProfile = () => {
+    setOpen(!open);
+  };
+
   const openSettings = () => {
+    reset();
     setIsOpened(null);
-    handleModal();
+    toogleMenuProfile();
   };
 
   const onSubmit = (data) => {
-    updateProfile(data);
-    handleModal();
     reset();
+    if (data.username !== undefined || data.email !== undefined) {
+      if (data.username === user.username) {
+        return toast.warning("Digite um usuário diferente do atual!");
+      } else if (data.email === user.email) {
+        return toast.warning("Digite um e-mail diferente do atual!");
+      }
+    }
+
+    if (data.username === undefined && data.email === undefined) {
+      return toast.warning("Digite um novo usuário ou e-mail!");
+    }
+
+    updateProfile(data);
+    toogleMenuProfile();
   };
+
   return (
     <>
       <Container>
@@ -78,25 +116,13 @@ const Header = () => {
             />
           </div>
 
-          <div>
-            <div>
+          <div className="userMenu">
+            <div className="navTabs">
               <div className="welcomeWrapper">
-                <p>Bem-vindo(a),</p>
+                <p>{greeting},</p>
                 <p>{user.username}!</p>
               </div>
-              <TabMenu>
-                <ul>
-                  <li>
-                    <Link to="/dashboard">diário</Link>
-                  </li>
-                  <li>
-                    <Link to="/dashboard/habits">hábitos</Link>
-                  </li>
-                  <li>
-                    <Link to="/dashboard/groups">grupos</Link>
-                  </li>
-                </ul>
-              </TabMenu>
+              <NavBar />
             </div>
             <div className="imageBG" />
           </div>
@@ -119,8 +145,8 @@ const Header = () => {
         </MenuItem>
       </Menu>
 
-      <Modal>
-        <form onSubmit={handleSubmit(onSubmit)}>
+      <Backdrop open={open} text="Meu Perfil">
+        <Form onSubmit={handleSubmit(onSubmit)}>
           <Input
             error={!!errors.username}
             errorMsg={errors.username?.message}
@@ -130,6 +156,8 @@ const Header = () => {
             name="username"
             icon={EditIcon}
             required={false}
+            isValidated
+            pinkScheme
           />
           <Input
             error={!!errors.email}
@@ -140,10 +168,21 @@ const Header = () => {
             name="email"
             icon={EditIcon}
             required={false}
+            isValidated
+            pinkScheme
           />
-          <Button type="submit">Atualizar</Button>
-        </form>
-      </Modal>
+          <div style={{ display: "flex", gap: 8 }}>
+            <FloatButton
+              greenIcon
+              onClick={toogleMenuProfile}
+              color="primary"
+              title="Cancelar"
+              icon={CloseIcon}
+            />
+            <FloatButton type="submit" title="Atualizar" icon={DoneIcon} />
+          </div>
+        </Form>
+      </Backdrop>
     </>
   );
 };

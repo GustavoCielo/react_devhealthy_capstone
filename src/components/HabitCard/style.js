@@ -1,23 +1,15 @@
 import styled from "styled-components";
-import { makeStyles } from "@material-ui/core/styles";
-
-export const useStyles = makeStyles((theme) => ({
-  backdrop: {
-    zIndex: theme.zIndex.drawer + 2,
-    color: "#fff",
-  },
-}));
 
 export const HabitCardStyled = styled.div`
   background-color: rgba(226, 182, 207, 0.47);
-  width: 300px;
-  height: 230px;
-  border-radius: 10px;
+  width: 250px;
+  height: 200px;
+  border-radius: 16px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  padding: 10px;
+  padding: 8px;
 `;
 
 export const HeaderContainer = styled.div`
@@ -27,9 +19,9 @@ export const HeaderContainer = styled.div`
 
   p {
     flex-grow: 1;
-    text-align: center;
-    padding-left: 8px;
     font-weight: bold;
+    text-align: center;
+    line-break: loose;
   }
 `;
 
@@ -48,19 +40,14 @@ export const Ball = styled.div`
   flex-shrink: 0;
 `;
 
-export const CheckboxContainer = styled.div`
+export const CheckContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  border-radius: 5px;
-
-  label {
-    margin: 0 0 0 auto;
-  }
 
   svg {
-    font-size: 3rem;
+    font-size: 2rem;
   }
 `;
 
@@ -83,18 +70,13 @@ export const IconContainer = styled.div`
   align-items: center;
   width: 100%;
 
-  figure {
-    width: 40px;
-    margin: 0;
-
-    img {
-      width: 100%;
-    }
+  img {
+    width: 30px;
   }
 `;
 
 export const BodyContainer = styled.div`
-  width: 70%;
+  width: 80%;
   display: flex;
   flex-direction: column;
   align-items: center;
