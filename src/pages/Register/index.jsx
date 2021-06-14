@@ -28,8 +28,8 @@ const Register = () => {
       .min(3, "Mínimo de 3 letras")
       .max(12, "máximo de 12 letras")
       .matches(
-        "^(?=.{3,12}$)(?![_. ])(?!.*[_. ]{2})[a-zA-Z]+(?<![_. ])$",
-        "Somente letras"
+        "^(?=.{3,12}$)(?![_. ])(?!.*[_. ]{2})[a-z]+(?<![_. ])$",
+        "Somente letras minúsculas"
       ),
     email: yup.string().email("E-mail inválido"),
     emailConfirm: yup
@@ -71,6 +71,7 @@ const Register = () => {
                 error={!!errors.username}
                 errorMsg={errors.username?.message}
                 icon={PersonIcon}
+                isValidated
               />
               <Input
                 label="E-mail"
@@ -79,6 +80,7 @@ const Register = () => {
                 error={!!errors.email}
                 errorMsg={errors.email?.message}
                 icon={EmailIcon}
+                isValidated
               />
               <Input
                 label="Confirmar E-mail"
@@ -87,6 +89,7 @@ const Register = () => {
                 error={!!errors.emailConfirm}
                 errorMsg={errors.emailConfirm?.message}
                 icon={EmailIcon}
+                isValidated
               />
               <Input
                 label="Senha"
@@ -96,6 +99,7 @@ const Register = () => {
                 errorMsg={errors.password?.message}
                 type="password"
                 icon={LockIcon}
+                isValidated
               />
               <Input
                 label="Confirmar Senha"
@@ -105,6 +109,7 @@ const Register = () => {
                 errorMsg={errors.passwordConfirm?.message}
                 type="password"
                 icon={LockIcon}
+                isValidated
               />
               <Button type="submit">Cadastrar</Button>
               <p>

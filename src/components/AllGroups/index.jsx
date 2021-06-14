@@ -1,21 +1,20 @@
-import GroupCard from "../GroupCard";
+import { useState } from "react";
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
+import { useGroups } from "../../contexts/Groups";
+import { useModal } from "../../contexts/Modal";
+import Backdrop from "@material-ui/core/Backdrop";
 import {
   ContainerGroups,
   ContainerStyled,
   InternContainer,
   useStyles,
 } from "./style.js";
-import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
-import Backdrop from "@material-ui/core/Backdrop";
-
-import FloatButton from "../FloatButton";
+import GroupCard from "../GroupCard";
 import Modal from "../Modal";
+import FloatButton from "../FloatButton";
 import Button from "../Button";
 import api from "../../services/api.js";
-import { useModal } from "../../contexts/Modal";
-import { useGroups } from "../../contexts/Groups";
 import image_group from "../../assets/img/image_group.svg";
-import { useState } from "react";
 
 const AllGroups = () => {
   const { groups, handleNext, handlePrev, previous, next } = useGroups();
@@ -95,10 +94,10 @@ const AllGroups = () => {
             </div>
             <div className="Body">
               <p>
-                <span>descrição:</span> {modalInfo.description}
+                <span>Descrição:</span> {modalInfo.description}
               </p>
               <p>
-                <span>categoria:</span> {modalInfo.category}
+                <span>Categoria:</span> {modalInfo.category}
               </p>
             </div>
 

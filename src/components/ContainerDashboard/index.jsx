@@ -1,4 +1,4 @@
-import { Container,ContainerContent } from "./style";
+import { Container, ContainerContent } from "./style";
 
 const ContainerDashboard = ({ children }) => {
   return (

@@ -6,8 +6,10 @@ export const ModalContainer = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
+  z-index: 1;
   display: grid;
   place-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
 
   .modal {
     padding: 16px;

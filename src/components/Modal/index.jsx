@@ -1,14 +1,15 @@
+import Fade from "@material-ui/core/Fade";
 import FloatButton from "../FloatButton";
 import CloseIcon from "@material-ui/icons/Close";
-import { ModalContainer } from "./style";
 import { useModal } from "../../contexts/Modal";
+import { ModalContainer } from "./style";
 
 const Modal = ({ children }) => {
   const { isVisible, handleModal } = useModal();
 
   return (
     <>
-      {isVisible && (
+      <Fade in={isVisible}>
         <ModalContainer>
           <div className="modal">
             <FloatButton
@@ -19,7 +20,7 @@ const Modal = ({ children }) => {
             {children}
           </div>
         </ModalContainer>
-      )}
+      </Fade>
     </>
   );
 };

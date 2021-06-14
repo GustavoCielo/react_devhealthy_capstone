@@ -54,6 +54,7 @@ const Login = () => {
               name="username"
               error={!!errors.username}
               errorMsg={errors.username?.message}
+              isValidated
             />
             <Input
               label="Senha"
@@ -63,10 +64,11 @@ const Login = () => {
               name="password"
               error={!!errors.password}
               errorMsg={errors.password?.message}
+              isValidated
             />
             <Button type="submit">Entrar</Button>
             <Text>
-              Não é cadastrado?{" "}
+              Não é cadastrado?
               <LinkStyle to="/register">Criar conta</LinkStyle>
             </Text>
           </Form>
