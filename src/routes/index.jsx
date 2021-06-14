@@ -2,9 +2,9 @@ import { Switch, Route } from "react-router-dom";
 import LandingPage from "../pages/LandingPage";
 import Register from "../pages/Register";
 import Login from "../pages/Login";
-// import Dashboard from "../pages/Dashboard";
+import Dashboard from "../pages/Dashboard";
 // import Habits from "../pages/Habits";
-// import Groups from "../pages/Groups";
+import Groups from "../pages/Groups";
 import NotFound from "../pages/NotFound";
 
 const Routes = () => {
@@ -19,9 +19,13 @@ const Routes = () => {
       <Route path="/register">
         <Register />
       </Route>
-      <Route exact path="/dashboard">{/* <Dashboard/> */}</Route>
+      <Route exact path="/dashboard">
+        {/* <Dashboard/> */}
+      </Route>
       <Route path="/dashboard/habits">{/* <Habits/> */}</Route>
-      <Route path="/dashboard/groups">{/* <Groups/> */}</Route>
+      <Route path="/dashboard/groups">
+        <Groups />
+      </Route>
       <Route path="*">
         <NotFound />
       </Route>
