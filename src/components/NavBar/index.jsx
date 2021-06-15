@@ -1,17 +1,17 @@
 import { Nav, NavLink, NavMenu } from "./style";
 
-const Navbar = () => {
+const Navbar = ({ username }) => {
   return (
     <>
       <Nav>
         <NavMenu>
-          <NavLink exact to="/dashboard" activeStyle>
+          <NavLink exact to={`/${username}`} activeStyle>
             diário
           </NavLink>
-          <NavLink to="/dashboard/habits" activeStyle>
+          <NavLink to={`/${username}/habits`} activeStyle>
             hábitos
           </NavLink>
-          <NavLink to="/dashboard/groups" activeStyle>
+          <NavLink to={`/${username}/groups`} activeStyle>
             grupos
           </NavLink>
         </NavMenu>

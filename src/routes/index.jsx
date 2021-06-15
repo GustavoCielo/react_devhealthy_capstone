@@ -11,7 +11,7 @@ const Routes = () => {
   return (
     <Switch>
       <Route exact path="/">
-        <LandingPage/>
+        <LandingPage />
       </Route>
       <Route path="/login">
         <Login />
@@ -19,13 +19,13 @@ const Routes = () => {
       <Route path="/register">
         <Register />
       </Route>
-      <Route exact path="/dashboard">
+      <Route exact path="/:username">
         <Dashboard />
       </Route>
-      <Route path="/dashboard/habits">
+      <Route path="/:username/habits">
         <Habits />
       </Route>
-      <Route path="/dashboard/groups">
+      <Route path="/:username/groups">
         <Groups />
       </Route>
       <Route path="*">

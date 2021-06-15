@@ -13,7 +13,7 @@ import PersonIcon from "@material-ui/icons/Person";
 import LockIcon from "@material-ui/icons/Lock";
 
 const Login = () => {
-  const { isAuthenticated, login } = useAuth();
+  const { isAuthenticated, username, login } = useAuth();
   const history = useHistory();
 
   const schema = yup.object().shape({
@@ -38,7 +38,7 @@ const Login = () => {
   };
 
   if (isAuthenticated) {
-    return <Redirect to="/dashboard" />;
+    return <Redirect to={`/${username}`} />;
   }
 
   return (

@@ -19,7 +19,7 @@ import EmailIcon from "@material-ui/icons/Email";
 import LockIcon from "@material-ui/icons/Lock";
 
 const Register = () => {
-  const { signup, isAuthenticated } = useAuth();
+  const { signup, isAuthenticated, username } = useAuth();
   const history = useHistory();
 
   const schema = yup.object().shape({
@@ -54,7 +54,7 @@ const Register = () => {
   };
 
   if (isAuthenticated) {
-    return <Redirect to="/dashboard" />;
+    return <Redirect to={`/${username}`} />;
   }
 
   return (
