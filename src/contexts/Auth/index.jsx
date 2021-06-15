@@ -6,6 +6,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("@Dev:token"));
@@ -33,8 +34,9 @@ export const AuthProvider = ({ children }) => {
           "@Dev:token",
           JSON.stringify(response.data.access)
         );
+        setUsername(data.username);
         setIsAuthenticated(true);
-        history.push("/dashboard");
+        history.push(`/${data.username}`);
       })
       .catch((error) => toast.error("Usuário ou senha inválidos."));
   };
@@ -48,6 +50,7 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         isAuthenticated,
+        username,
         signup,
         login,
         logout,

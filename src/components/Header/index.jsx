@@ -25,7 +25,7 @@ const Header = () => {
   const [greeting, setGreeting] = useState("");
   const [open, setOpen] = useState(false);
 
-  const { logout } = useAuth();
+  const { logout, username } = useAuth();
   const { user, updateProfile } = useUser();
 
   useEffect(() => {
@@ -120,9 +120,9 @@ const Header = () => {
             <div className="navTabs">
               <div className="welcomeWrapper">
                 <p>{greeting},</p>
-                <p>{user.username}!</p>
+                <p>{username}!</p>
               </div>
-              <NavBar />
+              <NavBar username={username} />
             </div>
             <div className="imageBG" />
           </div>
