@@ -9,6 +9,10 @@ export const ContainerCard = styled.div`
   justify-content: space-around;
   align-items: center;
 
+  cursor: pointer;
+  border-radius: 10px;
+  transition: background 300ms ease-in-out;
+
   figure {
     width: 30%;
     max-width: 30px;
@@ -34,7 +38,5 @@ export const ContainerCard = styled.div`
 
   :hover {
     background-color: #e9c9d9;
-    cursor: pointer;
-    border-radius: 10px;
   }
 `;
