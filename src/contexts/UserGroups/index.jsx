@@ -5,7 +5,7 @@ import api from "../../services/api";
 const UserGroupsContext = createContext();
 
 export const UserGroupsProvider = ({ children }) => {
-  const { token } = useUser();
+  const { token, useGroups } = useUser();
 
   const createGroup = (data) => {
     api

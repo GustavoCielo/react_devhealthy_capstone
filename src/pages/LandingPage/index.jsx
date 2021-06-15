@@ -12,7 +12,7 @@ import { useHistory, Redirect } from "react-router-dom";
 import { useAuth } from "../../contexts/Auth";
 
 const LandingPage = () => {
-  const { isAuthenticated, username } = useAuth();
+  const { isAuthenticated } = useAuth();
 
   const history = useHistory();
 
@@ -21,7 +21,7 @@ const LandingPage = () => {
   };
 
   if (isAuthenticated) {
-    return <Redirect to={`/${username}`} />;
+    return <Redirect to="/dashboard" />;
   }
 
   return (

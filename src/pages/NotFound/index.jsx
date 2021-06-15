@@ -7,7 +7,7 @@ import { Container, Content } from "./style";
 
 const NotFound = () => {
   const history = useHistory();
-  const { isAuthenticated, username } = useAuth();
+  const { isAuthenticated } = useAuth();
   const [move, setMove] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e) => {
@@ -16,7 +16,7 @@ const NotFound = () => {
 
   const redirectToHome = () => {
     if (isAuthenticated) {
-      history.push(`/${username}`);
+      history.push("/dashboard");
     } else {
       history.push("/");
     }

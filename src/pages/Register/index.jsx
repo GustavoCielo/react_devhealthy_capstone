@@ -19,7 +19,7 @@ import EmailIcon from "@material-ui/icons/Email";
 import LockIcon from "@material-ui/icons/Lock";
 
 const Register = () => {
-  const { signup, isAuthenticated, username } = useAuth();
+  const { signup, isAuthenticated } = useAuth();
   const history = useHistory();
 
   const schema = yup.object().shape({
@@ -29,7 +29,7 @@ const Register = () => {
       .max(12, "máximo de 12 letras")
       .matches(
         "^(?=.{3,12}$)(?![_. ])(?!.*[_. ]{2})[a-z]+(?<![_. ])$",
-        "Somente letras minúsculas"
+        "Somente letras minúsculas e nenhum acento"
       ),
     email: yup.string().email("E-mail inválido"),
     emailConfirm: yup
@@ -54,7 +54,7 @@ const Register = () => {
   };
 
   if (isAuthenticated) {
-    return <Redirect to={`/${username}`} />;
+    return <Redirect to="/dashboard" />;
   }
 
   return (
@@ -115,7 +115,7 @@ const Register = () => {
               <p>
                 Já está cadastrado?{" "}
                 <span>
-                  <LinkStyle to="/login">Entrar na Conta</LinkStyle>
+                  <LinkStyle to="/login"> Entrar na Conta</LinkStyle>
                 </span>
               </p>
             </Form>

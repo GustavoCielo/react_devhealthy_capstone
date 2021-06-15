@@ -25,7 +25,7 @@ const Header = () => {
   const [greeting, setGreeting] = useState("");
   const [open, setOpen] = useState(false);
 
-  const { logout, username } = useAuth();
+  const { logout } = useAuth();
   const { user, updateProfile } = useUser();
 
   useEffect(() => {
@@ -52,7 +52,7 @@ const Header = () => {
       .max(12, "máximo de 12 letras")
       .matches(
         "^(?=.{3,12}$)(?![_. ])(?!.*[_. ]{2})[a-z]+(?<![_. ])$",
-        "Somente letras minúsculas"
+        "Somente letras minúsculas e nenhum acento"
       ),
     email: yup.string().email("E-mail inválido"),
   });
@@ -120,9 +120,9 @@ const Header = () => {
             <div className="navTabs">
               <div className="welcomeWrapper">
                 <p>{greeting},</p>
-                <p>{username}!</p>
+                <p>{user.username}!</p>
               </div>
-              <NavBar username={username} />
+              <NavBar />
             </div>
             <div className="imageBG" />
           </div>
