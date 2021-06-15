@@ -8,6 +8,7 @@ export const GroupsProvider = ({ children }) => {
   const [url] = useState("groups/?page=1&category=DevHealthy");
   const [next, setNext] = useState("");
   const [previous, setPrevious] = useState("");
+  const [inputSearch, setInputSearch] = useState("");
 
   const getGroups = (url) => {
     api
@@ -18,6 +19,24 @@ export const GroupsProvider = ({ children }) => {
         setPrevious(res.data.previous);
       })
       .catch((err) => console.log(err));
+  };
+
+  const conEnterGroup = (id) => {
+    const token = JSON.parse(localStorage.getItem("@Dev:token"));
+    api
+      .post(`https://kabit-api.herokuapp.com/groups/${id}/subscribe/`, null, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
+
+  const getGroupsByCategory = (category) => {
+    api.get(`groups/?page=1&category=${category}`).then((res) => {
+      setGroups(res.data.results);
+    });
   };
 
   useEffect(() => {
@@ -36,7 +55,17 @@ export const GroupsProvider = ({ children }) => {
 
   return (
     <GroupsContext.Provider
-      value={{ groups, handleNext, handlePrev, previous, next }}
+      value={{
+        groups,
+        handleNext,
+        handlePrev,
+        previous,
+        next,
+        conEnterGroup,
+        inputSearch,
+        setInputSearch,
+        getGroupsByCategory,
+      }}
     >
       {children}
     </GroupsContext.Provider>
