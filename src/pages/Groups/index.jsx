@@ -51,9 +51,9 @@ const Groups = () => {
 
   return (
     <FullContainer>
-      <Header/>
+      <Header />
       <ContainerDashboard>
-      {/* <Container>
+        {/* <Container>
         {userGroups.map((group) => (
           <GroupCard key={group.id} name={group.name}>
             {group.name}
@@ -65,9 +65,9 @@ const Groups = () => {
         </ButtonStyle>
       </Container> */}
 
-      <AllGroups/>
+        <AllGroups />
 
-      {/* {isVisible ? (
+        {/* {isVisible ? (
         <Modal>
           <form onSubmit={handleSubmit(submitGroup)}>
             <Input
