@@ -19,13 +19,13 @@ const Routes = () => {
       <Route path="/register">
         <Register />
       </Route>
-      <Route exact path="/:username">
+      <Route exact path="/dashboard">
         <Dashboard />
       </Route>
-      <Route path="/:username/habits">
+      <Route path="/dashboard/habits">
         <Habits />
       </Route>
-      <Route path="/:username/groups">
+      <Route path="/dashboard/groups">
         <Groups />
       </Route>
       <Route path="*">

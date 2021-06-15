@@ -13,7 +13,7 @@ import PersonIcon from "@material-ui/icons/Person";
 import LockIcon from "@material-ui/icons/Lock";
 
 const Login = () => {
-  const { isAuthenticated, username, login } = useAuth();
+  const { isAuthenticated, login } = useAuth();
   const history = useHistory();
 
   const schema = yup.object().shape({
@@ -38,7 +38,7 @@ const Login = () => {
   };
 
   if (isAuthenticated) {
-    return <Redirect to={`/${username}`} />;
+    return <Redirect to="/dashboard" />;
   }
 
   return (
@@ -48,7 +48,7 @@ const Login = () => {
         <ContainerForm>
           <Form onSubmit={handleSubmit(handleLogin)}>
             <Input
-              label="Login"
+              label="Usuário"
               icon={PersonIcon}
               register={register}
               name="username"
@@ -69,7 +69,7 @@ const Login = () => {
             <Button type="submit">Entrar</Button>
             <Text>
               Não é cadastrado?
-              <LinkStyle to="/register">Criar conta</LinkStyle>
+              <LinkStyle to="/register"> Criar conta</LinkStyle>
             </Text>
           </Form>
         </ContainerForm>

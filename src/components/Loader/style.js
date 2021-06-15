@@ -2,9 +2,7 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 
 export const Loading = styled(motion.div)`
-  width: 120px;
-  height: 120px;
-  margin: 40px auto;
+  margin: 60px auto;
   border-radius: 50%;
   width: 6em;
   height: 6em;
