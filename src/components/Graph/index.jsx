@@ -12,7 +12,7 @@ const Graph = ({ width, progress = 0 }) => {
           textColor: "#E365C1",
           pathColor: "#E365C1",
           trailColor: "#E2B6CF",
-          textSize: "14px",
+          textSize: "24px",
         })}
       />
     </div>
