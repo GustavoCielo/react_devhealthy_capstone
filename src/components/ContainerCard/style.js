@@ -8,16 +8,15 @@ export const Container = styled.div`
   padding: 16px;
   display: flex;
   flex-direction: column;
+  margin: 8px auto;
 
   h3 {
     text-align: center;
     color: #666666;
-    margin-bottom: 20px;
   }
 
   @media (max-width: 600px) {
     width: 80%;
     max-height: 300px;
-    margin-bottom: 20px;
   }
 `;

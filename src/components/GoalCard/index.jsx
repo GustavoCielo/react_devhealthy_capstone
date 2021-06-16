@@ -3,11 +3,13 @@ import ProgressBar from "../ProgressBar";
 import FloatButton from "../FloatButton";
 import { Container, HeaderContainer, Ball, ProgressContainer } from "./style";
 
-const GoalCard = ({ title, difficulty, how_much_achieved }) => {
+const GoalCard = ({ goal }) => {
+  const { title, difficulty, how_much_achieved } = goal;
+  
   return (
     <Container>
       <HeaderContainer>
-        <Ball difficulty={difficulty}/>
+        <Ball difficulty={difficulty} />
         <p>{title}</p>
         <FloatButton title="Completar" icon={CheckIcon} />
       </HeaderContainer>

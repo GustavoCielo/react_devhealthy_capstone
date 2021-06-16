@@ -1,5 +1,29 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import bgImage from "../../assets/img/nothing-registered.svg";
+
+export const MainContainer = styled.main`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-top: 8px;
+
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 0.25rem;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #fafafa;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #e2b6cf;
+  }
+`;
 
 export const List = styled.div`
   display: flex;
@@ -28,6 +52,7 @@ export const Content = styled.div`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    padding-left: 4px;
   }
 `;
 
@@ -46,15 +71,19 @@ export const LinkStyle = styled(Link)`
 `;
 
 export const NullGoals = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   width: 100%;
-  height: 100%;
+  height: 90%;
+  background: url(${bgImage}) no-repeat center;
+  background-size: contain;
+  text-align: center;
 
-  img {
-    width: 100%;
-    height: 100%;
+  @media (max-width: 600px) {
+    min-height: 200px;
+  }
+
+  p {
+    text-shadow: 0.5px 0.5px #e396df;
+    font-weight: bold;
   }
 `;
 
@@ -113,6 +142,7 @@ export const SeeMore = styled.div`
   }
 `;
 
-export const IconeSeta = styled.img`
+export const ArrowIcon = styled.img`
   width: 20px;
+  cursor: pointer;
 `;

@@ -5,12 +5,12 @@ export const Container = styled.div`
     height: calc(100vh - 200px);
     display: flex;
     justify-content: center;
+    overflow: hidden;
 `
 
 export const ContainerContent = styled.div`
     height: 100%;
     width: 80%;
-    padding: 16px 8px;
     display: flex;
     justify-content: space-between;
     align-items: center;
