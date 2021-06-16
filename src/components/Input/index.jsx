@@ -9,7 +9,10 @@ const Input = ({
   errorMsg = "",
   required = true,
   pinkScheme = false,
+<<<<<<< HEAD
   isValidated = false,
+=======
+>>>>>>> b5d2c198ae7fb227848765aa9f41a66a9d954b30
   ...rest
 }) => {
   return (
