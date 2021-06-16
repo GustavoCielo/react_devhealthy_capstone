@@ -7,6 +7,7 @@ import Form from "../../components/Form";
 import Input from "../../components/Input";
 import SelectInput from "../../components/SelectInput";
 import ContainerCard from "../../components/ContainerCard";
+import IconsGroups from '../../components/IconsGroups'
 import GroupIcon from "@material-ui/icons/Group";
 import SearchIcon from "@material-ui/icons/Search";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
@@ -199,7 +200,7 @@ const Groups = () => {
               <GroupContainer>
                 <ButtonContainer>
                   <GroupCardContainer onClick={handleToogle}>
-                    <img src={ImageGroup} alt={actualGroup.name} />
+                    <IconsGroups category={actualGroup.category} alt={actualGroup.name} modal />
                     <p>{actualGroup.name}</p>
                     <ArrowDropDownIcon />
                   </GroupCardContainer>

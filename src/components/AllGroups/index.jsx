@@ -18,7 +18,6 @@ import GroupCard from "../GroupCard";
 import Modal from "../Modal";
 import FloatButton from "../FloatButton";
 import Button from "../Button";
-import image_group from "../../assets/img/image_group.svg";
 import { useUserGroups } from "../../contexts/UserGroups";
 import { useForm, FormProvider } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -30,6 +29,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import AddIcon from "@material-ui/icons/Add";
 import Form from "../Form";
 import SelectInput from "../../components/SelectInput";
+import IconsGroups from '../../components/IconsGroups'
 import { useUser } from "../../contexts/User";
 
 const AllGroups = () => {
@@ -184,6 +184,7 @@ const AllGroups = () => {
                       <GroupCard
                         key={group.id}
                         name={group.name}
+                        category={group.category}
                         handleClick={() =>
                           handleClick({
                             id: group.id,
@@ -200,6 +201,7 @@ const AllGroups = () => {
                     <GroupCard
                       key={group.id}
                       name={group.name}
+                      category={group.category}
                       handleClick={() =>
                         handleClick({
                           id: group.id,
@@ -225,7 +227,7 @@ const AllGroups = () => {
           <InternContainer>
             <div className="Header">
               <figure>
-                <img src={image_group} alt="logo" />
+                <IconsGroups category={modalInfo.category} modal/>
               </figure>
               <h4>{modalInfo.name}</h4>
             </div>

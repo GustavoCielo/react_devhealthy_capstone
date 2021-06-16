@@ -17,10 +17,6 @@ export const ContainerCard = styled.div`
     width: 30%;
     max-width: 30px;
     height: 30px;
-
-    img {
-      width: 100%;
-    }
   }
 
   h4 {

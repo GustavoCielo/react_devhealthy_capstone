@@ -126,9 +126,6 @@ export const GroupCardContainer = styled.div`
   &:hover > svg {
       color: #e365c1;
     }
-  img {
-    width: 32px;
-  }
 
   img:last-child {
     width: 16px;

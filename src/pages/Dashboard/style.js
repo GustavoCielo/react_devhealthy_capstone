@@ -47,6 +47,7 @@ export const Content = styled.div`
   margin-bottom: 20px;
   width: 100%;
   display: flex;
+  align-items: center;
 
   div {
     white-space: nowrap;
@@ -60,13 +61,10 @@ export const LinkStyle = styled(Link)`
   text-decoration: none;
   color: black;
   font-weight: bolder;
+  transition: color 300ms ease-in-out;
 
-  &:focus,
-  &:hover,
-  &:visited,
-  &:link,
-  &:active {
-    text-decoration: none;
+  &:hover {
+    color: #397f39;
   }
 `;
 

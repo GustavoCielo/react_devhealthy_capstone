@@ -21,8 +21,8 @@ import Header from "../../components/Header";
 import ContainerCard from "../../components/ContainerCard";
 import arrowImg from "../../assets/img/seta.svg";
 import habitIcon from "../../assets/img/habitIcon.svg";
-import groupIcon from "../../assets/img/image_group.svg";
 import Loader from "../../components/Loader";
+import IconsGroups from '../../components/IconsGroups'
 
 const Dashboard = () => {
   const { token, getProfile, userGroups, getGroups, habits, getHabits } =
@@ -59,7 +59,7 @@ const Dashboard = () => {
                   <List>
                     {userGroups.map((groups) => (
                       <Content key={groups.id}>
-                        <img src={groupIcon} alt="Ícone grupos" />
+                        <IconsGroups category={groups.category}/>
                         <div>{groups.name}</div>
                       </Content>
                     ))}
