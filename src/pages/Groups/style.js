@@ -14,8 +14,8 @@ export const StyledMenuItem = withStyles((theme) => ({
 
 export const useStyles = makeStyles((theme) => ({
   container: {
-    display: 'flex',
-    flexWrap: 'wrap',
+    display: "flex",
+    flexWrap: "wrap",
   },
   textField: {
     marginLeft: theme.spacing(1),
@@ -25,7 +25,7 @@ export const useStyles = makeStyles((theme) => ({
 }));
 
 export const Container = styled.div`
-  height: 100%;
+  height: 80%;
   width: 100%;
   padding: 24px 8px;
   display: flex;
@@ -66,15 +66,15 @@ export const MainContainer = styled.main`
   justify-content: space-between;
   align-items: flex-start;
   flex-grow: 1;
-  
 `;
 
 export const NothingToShow = styled.div`
-  height: 100%;
-  min-height: 300px;
+  height: 300px;
+  width: 100%;
   background: url(${bgImage}) no-repeat center;
   background-size: contain;
   text-align: center;
+  margin: auto;
 
   @media (max-width: 600px) {
     min-height: 200px;
@@ -98,21 +98,20 @@ export const GoalsContainer = styled.ul`
   &::-webkit-scrollbar-thumb {
     background-color: #e2b6cf;
   }
-
 `;
 
 export const ActivitiesContainer = styled.ul`
   overflow: hidden scroll;
 
-&::-webkit-scrollbar {
-  width: 0.25rem;
-}
-&::-webkit-scrollbar-track {
-  background-color: #fafafa;
-}
-&::-webkit-scrollbar-thumb {
-  background-color: #e2b6cf;
-}
+  &::-webkit-scrollbar {
+    width: 0.25rem;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #fafafa;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #e2b6cf;
+  }
 `;
 
 export const GroupCardContainer = styled.div`
@@ -124,8 +123,8 @@ export const GroupCardContainer = styled.div`
   cursor: pointer;
 
   &:hover > svg {
-      color: #e365c1;
-    }
+    color: #e365c1;
+  }
 
   img:last-child {
     width: 16px;
@@ -135,10 +134,8 @@ export const GroupCardContainer = styled.div`
   svg {
     font-size: 2.5rem;
     color: #e396df;
-   
-    transition: color 300ms ease-in-out;
 
- 
+    transition: color 300ms ease-in-out;
   }
 `;
 
