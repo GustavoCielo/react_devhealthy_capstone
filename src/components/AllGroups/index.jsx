@@ -9,10 +9,9 @@ import {
   ContainerGroups,
   ContainerStyled,
   InternContainer,
-  useStyles,
   ContainerControlers,
   InputStyled,
-  ButtonCreateGroup,
+  FilterContainer,
   Container,
 } from "./style.js";
 import GroupCard from "../GroupCard";
@@ -21,13 +20,17 @@ import FloatButton from "../FloatButton";
 import Button from "../Button";
 import image_group from "../../assets/img/image_group.svg";
 import { useUserGroups } from "../../contexts/UserGroups";
-import { useForm } from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Input from "../../components/Input";
-import { InputLabel, MenuItem, FormControl, Select } from "@material-ui/core";
-import AddCircleIcon from "@material-ui/icons/AddCircle";
+import { Hidden } from "@material-ui/core";
+import DoneIcon from "@material-ui/icons/Done";
+import CloseIcon from "@material-ui/icons/Close";
+import AddIcon from "@material-ui/icons/Add";
 import Form from "../Form";
+import SelectInput from "../../components/SelectInput";
+import { useUser } from "../../contexts/User";
 
 const AllGroups = () => {
   const {
@@ -41,10 +44,10 @@ const AllGroups = () => {
     setInputSearch,
     getGroupsByCategory,
   } = useGroups();
+  const {getGroups} = useUser()
   const { isVisible, handleModal } = useModal();
   const [modalInfo, setModalInfo] = useState();
   const [open, setOpen] = useState(false);
-  const classes = useStyles();
   const { createGroup } = useUserGroups();
   const [isVisibleCreateGroup, setIsVisibleCreateGroup] = useState(false);
 
@@ -53,16 +56,43 @@ const AllGroups = () => {
     description: yup.string().min(6, "Mínimo de 6 caracteres"),
   });
 
+  const methods = useForm({
+    resolver: yupResolver(schema),
+  });
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(schema) });
+    reset,
+  } = methods;
+
+  const categoryOptions = [
+    {
+      id: "DevHealthy-Saúde",
+      label: "Saúde",
+    },
+    {
+      id: "DevHealthy-Hobby",
+      label: "Hobby",
+    },
+    {
+      id: "DevHealthy-Estudo",
+      label: "Estudo",
+    },
+    {
+      id: "DevHealthy-Culinária",
+      label: "Culinária",
+    },
+  ];
+  const createGroupByUser = () => {
+    reset();
+    setIsVisibleCreateGroup(!isVisibleCreateGroup);
+  };
 
   const submitGroup = (data) => {
-    console.log(data);
     createGroup(data);
-    setIsVisibleCreateGroup(false);
+    createGroupByUser();
   };
 
   const handleToggle = () => {
@@ -82,10 +112,7 @@ const AllGroups = () => {
   const handleEnterGroup = (id) => {
     conEnterGroup(id);
     handleModal();
-  };
-
-  const createGroupByUser = () => {
-    setIsVisibleCreateGroup(true);
+    getGroups();
   };
 
   return (
@@ -96,15 +123,28 @@ const AllGroups = () => {
             <GoSearch />
             <input
               type="text"
-              placeholder="pesquisar grupo"
+              placeholder="Pesquisar grupo"
               value={inputSearch}
               onChange={(e) => setInputSearch(e.target.value)}
             />
           </InputStyled>
-          <ButtonCreateGroup onClick={createGroupByUser}>
-            <AiFillPlusCircle />
-            <span>Criar Grupo</span>
-          </ButtonCreateGroup>
+          <Hidden smUp>
+            <FloatButton
+              title="Criar Grupo"
+              icon={AddIcon}
+              onClick={createGroupByUser}
+              color="primary"
+              greenIcon
+            />
+          </Hidden>
+
+          <Hidden only="xs">
+            <Button color="secondary" onClick={createGroupByUser}>
+              <AiFillPlusCircle /> Criar Grupo
+            </Button>
+          </Hidden>
+        </ContainerControlers>
+        <FilterContainer>
           <ul>
             <li onClick={() => getGroupsByCategory("DevHealthy-Culinária")}>
               <a href="#">Culinária</a>
@@ -118,15 +158,18 @@ const AllGroups = () => {
             <li onClick={() => getGroupsByCategory("DevHealthy-Saúde")}>
               <a href="#">Saúde</a>
             </li>
-            <li onClick={() => getGroupsByCategory("DevHealthy")}>Todos</li>
+            <li onClick={() => getGroupsByCategory("DevHealthy")}>
+              {" "}
+              <a href="#">Todos</a>
+            </li>
           </ul>
-        </ContainerControlers>
+        </FilterContainer>
         <ContainerStyled>
           <FloatButton
             title="Voltar"
             icon={MdKeyboardArrowLeft}
             onClick={handlePrev}
-            disabled={!previous ?? true}
+            disabled={!previous}
           />
           <ContainerGroups>
             {inputSearch
@@ -173,46 +216,8 @@ const AllGroups = () => {
             title="Avançar"
             icon={MdKeyboardArrowRight}
             onClick={handleNext}
-            disabled={!next ?? true}
+            disabled={!next}
           />
-          {
-            <Backdrop simple open={isVisibleCreateGroup}>
-              <Form onSubmit={handleSubmit(submitGroup)}>
-                <Input
-                  label="Título"
-                  register={register}
-                  name="name"
-                  error={!!errors.name}
-                  errorMsg={errors.name?.message}
-                />
-
-                <FormControl style={{ width: "100%", marginBottom: 10 }}>
-                  <InputLabel>Categoria</InputLabel>
-                  <Select {...register("category")} required>
-                    <MenuItem value="Categoria" disabled>
-                      Categoria
-                    </MenuItem>
-                    <MenuItem value="DevHealthy-Saúde">Saúde</MenuItem>
-                    <MenuItem value="DevHealthy-Hobby">Hobby</MenuItem>
-                    <MenuItem value="DevHealthy-Estudo">Estudo</MenuItem>
-                    <MenuItem value="DevHealthy-Culinária">Culinária</MenuItem>
-                  </Select>
-                </FormControl>
-
-                <Input
-                  label="Descrição"
-                  register={register}
-                  name="description"
-                  error={!!errors.description}
-                  errorMsg={errors.description?.message}
-                />
-                <Button type="submit">
-                  <AddCircleIcon />
-                  criar grupo
-                </Button>
-              </Form>
-            </Backdrop>
-          }
         </ContainerStyled>
       </Container>
       {isVisible && (
@@ -248,6 +253,51 @@ const AllGroups = () => {
           </InternContainer>
         </Modal>
       )}
+
+      <Backdrop simple open={isVisibleCreateGroup}>
+        <FormProvider {...methods}>
+          <Form onSubmit={handleSubmit(submitGroup)} autoComplete="off">
+            <Input
+              label="Título"
+              register={register}
+              name="name"
+              error={!!errors.name}
+              errorMsg={errors.name?.message}
+              pinkScheme
+              isValidated
+            />
+
+            <SelectInput
+              name="category"
+              title="Categoria"
+              label="Categoria"
+              options={categoryOptions}
+              required
+              style={{ width: 200 }}
+            />
+
+            <Input
+              label="Descrição"
+              register={register}
+              name="description"
+              error={!!errors.description}
+              errorMsg={errors.description?.message}
+              pinkScheme
+              isValidated
+            />
+            <div style={{ display: "flex", gap: 8 }}>
+              <FloatButton
+                title="Cancelar"
+                icon={CloseIcon}
+                color="primary"
+                greenIcon
+                onClick={createGroupByUser}
+              />
+              <FloatButton title="Criar Grupo" icon={DoneIcon} type="submit" />
+            </div>
+          </Form>
+        </FormProvider>
+      </Backdrop>
     </>
   );
 };

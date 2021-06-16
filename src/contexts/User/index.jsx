@@ -11,6 +11,7 @@ export const UserProvider = ({ children }) => {
   const [id, setId] = useState(0);
   const [user, setUser] = useState({});
   const [userGroups, setUserGroups] = useState([]);
+  const [hasGroup, setHasGroup] = useState(false);
   const [habits, setHabits] = useState([]);
   const { isAuthenticated } = useAuth();
 
@@ -31,7 +32,15 @@ export const UserProvider = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((response) => setUserGroups(response.data))
+      .then((response) =>{
+        setUserGroups(response.data)
+        if (!!response.data[0]) {
+          setHasGroup(true);
+
+        } else {
+          setHasGroup(false);
+        }
+      } )
       .catch((error) => console.log(error));
   };
 
@@ -144,6 +153,8 @@ export const UserProvider = ({ children }) => {
         createHabit,
         updateHabit,
         deleteHabit,
+        hasGroup,
+        setHasGroup
       }}
     >
       {children}

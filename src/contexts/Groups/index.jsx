@@ -1,5 +1,6 @@
 import { useState, useEffect, createContext, useContext } from "react";
 import api from "../../services/api.js";
+import { useUser } from "../User/index.jsx";
 
 export const GroupsContext = createContext();
 
@@ -9,9 +10,10 @@ export const GroupsProvider = ({ children }) => {
   const [next, setNext] = useState("");
   const [previous, setPrevious] = useState("");
   const [inputSearch, setInputSearch] = useState("");
+  const { setHasGroup, getGroups: getUserGroups } = useUser();
 
   const getGroups = (url) => {
-    api
+    api 
       .get(url)
       .then((res) => {
         setGroups(res.data.results);
@@ -29,14 +31,22 @@ export const GroupsProvider = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((res) => console.log(res))
+      .then((res) => {
+        getUserGroups();
+        setHasGroup(true)
+      })
       .catch((err) => console.log(err));
   };
 
   const getGroupsByCategory = (category) => {
-    api.get(`groups/?page=1&category=${category}`).then((res) => {
-      setGroups(res.data.results);
-    });
+    api
+      .get(`groups/?page=1&category=${category}`)
+      .then((res) => {
+        setGroups(res.data.results);
+        setNext(res.data.next);
+        setPrevious(res.data.previous);
+      })
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
@@ -44,7 +54,9 @@ export const GroupsProvider = ({ children }) => {
   }, []);
 
   const handleNext = () => {
-    getGroups(next);
+    if (next !== null) {
+      getGroups(next);
+    }
   };
 
   const handlePrev = () => {

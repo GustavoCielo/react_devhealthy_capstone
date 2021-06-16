@@ -57,7 +57,7 @@ export const ProgressContainer = styled.div`
 
   p {
     span {
-      font-size: 16px;
+      font-size: 1rem;
       font-style: italic;
       font-weight: 500;
     }

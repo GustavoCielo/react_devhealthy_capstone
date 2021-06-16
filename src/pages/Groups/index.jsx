@@ -3,195 +3,391 @@ import FullContainer from "../../components/FullContainer";
 import Header from "../../components/Header";
 import ContainerDashboard from "../../components/ContainerDashboard";
 import AllGroups from "../../components/AllGroups";
+import Form from "../../components/Form";
 import Input from "../../components/Input";
-import Modal from "../../components/Modal";
-import GroupCard from "../../components/GroupCard";
+import SelectInput from "../../components/SelectInput";
 import ContainerCard from "../../components/ContainerCard";
-import ProgressBar from "../../components/ProgressBar";
-import arrowDown from "../../assets/img/arrowDown.svg";
+import GroupIcon from "@material-ui/icons/Group";
+import SearchIcon from "@material-ui/icons/Search";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import ImageGroup from "../../assets/img/image_group.svg";
+import CloseIcon from "@material-ui/icons/Close";
+import DoneIcon from "@material-ui/icons/Done";
 import {
-  ActiviesContainer,
+  ActivitiesContainer,
   Container,
   GoalsContainer,
   GroupContainer,
-  MemberContainer,
-  ContainerDescription,
-  ButtonStyle,
   ButtonContainer,
   GroupCardContainer,
-  ContainerColumn,
+  NothingToShow,
+  StyledMenuItem,
+  MembersList,
+  MainContainer,
+  useStyles,
 } from "./style";
-import { InputLabel, MenuItem, FormControl, Select } from "@material-ui/core";
-import SearchIcon from "@material-ui/icons/Search";
-import AddCircleIcon from "@material-ui/icons/AddCircle";
-import AddIcon from "@material-ui/icons/Add";
-import SettingsIcon from "@material-ui/icons/Settings";
+import { Menu, MenuItem, Avatar, TextField } from "@material-ui/core";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import MenuIcon from "@material-ui/icons/Menu";
+import StarRateIcon from "@material-ui/icons/StarRate";
 import { useEffect, useState } from "react";
-import { useModal } from "../../contexts/Modal";
-import { useAuth } from "../../contexts/Auth";
 import { Redirect } from "react-router";
-import { useForm } from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useUser } from "../../contexts/User";
 import { useUserGroups } from "../../contexts/UserGroups";
+import Loader from "../../components/Loader";
+import FloatButton from "../../components/FloatButton";
+import GoalCard from "../../components/GoalCard";
+import ActivityCard from "../../components/ActivityCard";
+import Backdrop from "../../components/Backdrop";
 
 const Groups = () => {
-  const { token, userGroups, getGroups } = useUser();
-  const { isVisible, handleModal } = useModal();
-  const { createGroup } = useUserGroups();
+  const [isLoading, setIsLoading] = useState(true);
+  const [isOpened, setIsOpened] = useState(null);
+  const [openOptions, setOpenOptions] = useState(null);
+  const [confirmExit, setConfirmExit] = useState(false);
+  const [showFormGoal, setShowFormGoal] = useState(false);
+  const [showFormActivity, setShowFormActivity] = useState(false);
+  const { token, userGroups, getGroups, getProfile, hasGroup } = useUser();
+  const {
+    createGroup,
+    getAGroup,
+    actualGroup,
+    leaveGroup,
+    addGoal,
+    addActivity,
+  } = useUserGroups();
+
+  const classes = useStyles();
 
   const schema = yup.object().shape({
     name: yup.string().min(3, "Mínimo de 3 caracteres"),
     description: yup.string().min(6, "Mínimo de 6 caracteres"),
+    goalTitle: yup.string().max(50, "Máximo de 50 caracteres"),
+    difficulty: yup.string(),
+    activityTitle: yup.string().max(50, "Máximo de 50 caracteres"),
+    realization_time: yup.string(),
+  });
+
+  const methods = useForm({
+    resolver: yupResolver(schema),
   });
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(schema) });
-
-  const submitGroup = (data) => {
-    console.log(data);
-    createGroup(data);
-  };
+    reset,
+  } = methods;
 
   useEffect(() => {
     if (token) {
+      getProfile();
       getGroups();
+      !!userGroups[0] && getAGroup(userGroups[0].id);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
     }
   }, []);
+
+  const difficultyOptions = [
+    {
+      id: "Fácil",
+      label: "Fácil",
+      qtd: [1],
+    },
+    {
+      id: "Média",
+      label: "Média",
+      qtd: [1, 2],
+    },
+    {
+      id: "Difícil",
+      label: "Difícil",
+      qtd: [1, 2, 3],
+    },
+    {
+      id: "Muito Difícil",
+      label: "Muito Difícil",
+      qtd: [1, 2, 3, 4],
+    },
+  ];
+
+  const handleToogle = (e) => {
+    setIsOpened(e.currentTarget);
+  };
+
+  const handleOptions = (e) => {
+    setOpenOptions(e.currentTarget);
+  };
+
+  const handleClose = (e) => {
+    setIsOpened(null);
+    setOpenOptions(null);
+  };
+
+  const selectGroup = (id) => {
+    getAGroup(id);
+    setIsOpened(null);
+  };
+
+  const submitGroup = (data) => {
+    createGroup(data);
+  };
+
+  const handleConfirm = () => {
+    setConfirmExit(!confirmExit);
+    setOpenOptions(null);
+  };
+
+  const handleFormGoal = () => {
+    reset();
+    setShowFormGoal(!showFormGoal);
+    setOpenOptions(null);
+  };
+
+  const submitGoal = (data) => {
+    const goalData = {
+      title: data.goalTitle,
+      difficulty: data.difficulty,
+      how_much_achieved: 0,
+      group: actualGroup.id,
+    };
+    addGoal(goalData, actualGroup.id);
+    handleFormGoal();
+  };
+
+  const handleFormActivity = () => {
+    reset();
+    setShowFormActivity(!showFormActivity);
+    setOpenOptions(null);
+  };
+
+  const submitActivity = (data) => {
+    const activityData = {
+      title: data.activityTitle,
+      realization_time: data.realization_time,
+      group: actualGroup.id,
+    };
+    addActivity(activityData, actualGroup.id);
+    handleFormActivity();
+  };
+
+  const handleLeave = (id) => {
+    leaveGroup(id);
+    getAGroup(userGroups[0].id);
+    getGroups();
+    handleConfirm();
+  };
 
   if (!token) {
     return <Redirect to="/" />;
   }
-
   return (
-    <FullContainer>
-      <Header />
-      <ContainerDashboard>
-        <Container>
-          <GroupContainer>
-            <ButtonContainer>
-              {/* <AllGroups /> */}
-              <GroupCardContainer>
-                <img src={ImageGroup} alt="nome do grupo" />
-                <p>{userGroups[0].name}</p>
-                <input type="checkbox" name="arrowDown" id="arrowDown" />
-                <label htmlFor="arrowDown">
-                  <img src={arrowDown} alt="chose your group" />
-                </label>
-              </GroupCardContainer>
-              {/* <ContainerDescription>
-                {userGroups.map((group) => (
-                  <GroupCard key={group.id} name={group.name}>
-                    {group.name}
-                  </GroupCard>
-                ))}
-                <ButtonStyle onClick={handleModal}>
-                  <AddCircleIcon />
-                  criar grupo
-                </ButtonStyle>
-              </ContainerDescription> */}
-              {isVisible ? (
-                <Modal>
-                  <form onSubmit={handleSubmit(submitGroup)}>
-                    <Input
-                      label="Título"
-                      register={register}
-                      name="name"
-                      error={!!errors.name}
-                      errorMsg={errors.name?.message}
-                    />
+    <>
+      <FullContainer>
+        <Header />
+        <ContainerDashboard>
+          {isLoading ? (
+            <Loader />
+          ) : hasGroup ? (
+            <Container>
+              <GroupContainer>
+                <ButtonContainer>
+                  <GroupCardContainer onClick={handleToogle}>
+                    <img src={ImageGroup} alt={actualGroup.name} />
+                    <p>{actualGroup.name}</p>
+                    <ArrowDropDownIcon />
+                  </GroupCardContainer>
+                </ButtonContainer>
 
-                    <FormControl style={{ width: "100%", marginBottom: 10 }}>
-                      <InputLabel>Categoria</InputLabel>
-                      <Select {...register("category")} required>
-                        <MenuItem value="Categoria" disabled>
-                          Categoria
-                        </MenuItem>
-                        <MenuItem value="DevHealthy-Saúde">Saúde</MenuItem>
-                        <MenuItem value="DevHealthy-Hobby">Hobby</MenuItem>
-                        <MenuItem value="DevHealthy-Estudo">Estudo</MenuItem>
-                        <MenuItem value="DevHealthy-Culinária">
-                          Culinária
-                        </MenuItem>
-                      </Select>
-                    </FormControl>
+                <Menu
+                  anchorEl={isOpened}
+                  keepMounted
+                  open={Boolean(isOpened)}
+                  onClose={handleClose}
+                >
+                  {userGroups.map((group) => (
+                    <StyledMenuItem
+                      key={group.id}
+                      onClick={() => selectGroup(group.id)}
+                    >
+                      <GroupIcon /> {group.name}
+                    </StyledMenuItem>
+                  ))}
+                </Menu>
 
-                    <Input
-                      label="Descrição"
-                      register={register}
-                      name="description"
-                      error={!!errors.description}
-                      errorMsg={errors.description?.message}
-                    />
-                    <Button type="submit">
-                      <AddCircleIcon />
-                      criar grupo
-                    </Button>
-                  </form>
-                </Modal>
-              ) : (
-                ""
-              )}
-            </ButtonContainer>
-            <Button
-              startIcon={<AddIcon />}
-              grayText
-              isLight
-              onClick={handleModal}
-            >
-              criar atividade
-            </Button>
+                <FloatButton
+                  title="Opções"
+                  icon={MenuIcon}
+                  onClick={handleOptions}
+                />
 
-            <Button
-              startIcon={<AddIcon />}
-              grayText
-              isLight
-              onClick={handleModal}
-            >
-              criar meta
-            </Button>
+                <Menu
+                  anchorEl={openOptions}
+                  keepMounted
+                  open={Boolean(openOptions)}
+                  onClose={handleClose}
+                >
+                  <MenuItem onClick={handleFormGoal}>
+                    <AddCircleOutlineIcon /> Criar meta
+                  </MenuItem>
+                  <MenuItem onClick={handleFormActivity}>
+                    <AddCircleOutlineIcon /> Criar atividade
+                  </MenuItem>
+                  <MenuItem onClick={handleConfirm}>
+                    <ExitToAppIcon /> Sair do grupo
+                  </MenuItem>
+                  <MenuItem>
+                    <AddCircleOutlineIcon /> Criar grupo
+                  </MenuItem>
+                  <MenuItem>
+                    <SearchIcon /> Pesquisar grupos
+                  </MenuItem>
+                </Menu>
+              </GroupContainer>
+              <MainContainer>
+                <ContainerCard title="Atividades" width="35%">
+                  {!!actualGroup.activities[0] ? (
+                    <ActivitiesContainer>
+                      {actualGroup.activities.map((activity) => (
+                        <li key={activity.id}>
+                          <ActivityCard activity={activity} />
+                        </li>
+                      ))}
+                    </ActivitiesContainer>
+                  ) : (
+                    <NothingToShow>
+                      <p>Sem atividades cadastradas</p>
+                    </NothingToShow>
+                  )}
+                </ContainerCard>
+                <ContainerCard title="Metas" width="35%">
+                  {!!actualGroup.goals[0] ? (
+                    <GoalsContainer>
+                      {actualGroup.goals.map((goal) => (
+                        <li key={goal.id}>
+                          <GoalCard goal={goal} />
+                        </li>
+                      ))}
+                    </GoalsContainer>
+                  ) : (
+                    <NothingToShow>
+                      <p>Sem metas cadastradas</p>
+                    </NothingToShow>
+                  )}
+                </ContainerCard>
+                <ContainerCard title="Membros" width="20%">
+                  <MembersList>
+                    {actualGroup.users_on_group.map((item) => (
+                      <li key={item.id}>
+                        {" "}
+                        <Avatar>
+                          {item.username.slice(0, 1).toUpperCase()}
+                        </Avatar>{" "}
+                        {item.username}
+                      </li>
+                    ))}
+                  </MembersList>
+                </ContainerCard>
+              </MainContainer>
+            </Container>
+          ) : (
+            <AllGroups />
+          )}
+        </ContainerDashboard>
+      </FullContainer>
 
-            <ContainerColumn>
-              <Button startIcon={<AddIcon />} color="secondary">
-                pesquisar grupos
-              </Button>
-              <Button startIcon={<SettingsIcon />}>editar grupos</Button>
-              {/* condicional: só mostrar se o ID do usuário for igual ao ID do criador do grupo */}
-            </ContainerColumn>
-          </GroupContainer>
-          <ActiviesContainer>
-            <ContainerCard title="atividades" />
-            <ContainerCard title="metas">
-              {console.log(userGroups)}
-              {userGroups.goals?.map((item) => {
-                return (
-                  <li>
-                    <img src="" alt={item.difficulty} />
-                    <span>{item.title}</span>
-                    <p>Progresso</p>
-                    <ProgressBar>{item.how_much_achieved}</ProgressBar>
-                    <input type="checkbox" />
-                  </li>
-                );
-              })}
-            </ContainerCard>
-            <ContainerCard title="membros">
-              <ul>
-                {console.log(userGroups)}
-                {userGroups.users_on_group?.map((item, index) => {
-                  return <li key={index}>{item.username}</li>;
-                })}
-              </ul>
-            </ContainerCard>
-          </ActiviesContainer>
-        </Container>
-      </ContainerDashboard>
-    </FullContainer>
+      <Backdrop
+        open={confirmExit}
+        simple
+        text={`Tem certeza que deseja deixar o grupo: ${actualGroup.name}`}
+      >
+        <Button onClick={handleConfirm}>Não</Button>
+        <Button color="secondary" onClick={() => handleLeave(actualGroup.id)}>
+          Sim
+        </Button>
+      </Backdrop>
+
+      <Backdrop open={showFormGoal}>
+        <FormProvider {...methods}>
+          <Form autoComplete="off" onSubmit={handleSubmit(submitGoal)}>
+            <Input
+              label="Título"
+              isValidated
+              pinkScheme
+              name="goalTitle"
+              register={register}
+              error={!!errors.goalTitle}
+              errorMsg={errors.goalTitle?.message}
+            />
+            <SelectInput
+              name="difficulty"
+              title="Dificuldade"
+              icon={StarRateIcon}
+              label="Dificuldade"
+              options={difficultyOptions}
+              required
+              style={{ width: 200 }}
+            />
+            <div style={{ display: "flex", gap: 8 }}>
+              <FloatButton
+                title="Cancelar"
+                icon={CloseIcon}
+                color="primary"
+                greenIcon
+                onClick={handleFormGoal}
+              />
+              <FloatButton title="Criar Meta" icon={DoneIcon} type="submit" />
+            </div>
+          </Form>
+        </FormProvider>
+      </Backdrop>
+
+      <Backdrop open={showFormActivity}>
+        <Form autoComplete="off" onSubmit={handleSubmit(submitActivity)}>
+          <Input
+            label="Título"
+            isValidated
+            pinkScheme
+            name="activityTitle"
+            register={register}
+            error={!!errors.activityTitle}
+            errorMsg={errors.activityTitle?.message}
+          />
+          <TextField
+            id="datetime-local"
+            label="Data e hora da atividade"
+            type="datetime-local"
+            {...register("realization_time")}
+            required
+            defaultValue="2021-06-16T10:30"
+            className={classes.textField}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+          <div style={{ display: "flex", gap: 8 }}>
+            <FloatButton
+              title="Cancelar"
+              icon={CloseIcon}
+              color="primary"
+              greenIcon
+              onClick={handleFormActivity}
+            />
+            <FloatButton
+              title="Criar Atividade"
+              icon={DoneIcon}
+              type="submit"
+            />
+          </div>
+        </Form>
+      </Backdrop>
+    </>
   );
 };
 

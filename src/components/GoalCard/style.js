@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  width: 280px;
+  width: 100%;
 `;
 
 export const HeaderContainer = styled.div`
@@ -15,6 +15,11 @@ export const HeaderContainer = styled.div`
     text-align: center;
     line-break: loose;
   }
+
+  Button {
+    width: 30px;
+    height: 30px;
+  }
 `;
 
 export const Ball = styled.div`
@@ -26,8 +31,8 @@ export const Ball = styled.div`
       : props.difficulty === "Difícil"
       ? "orange"
       : "red"};
-  width: 24px;
-  height: 24px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   flex-shrink: 0;
 `;

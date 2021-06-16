@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useUser } from "../../contexts/User";
-import { Redirect, useHistory, useParams } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import {
-  IconeSeta,
+  ArrowIcon,
   SeeMore,
   List,
   Content,
@@ -13,13 +13,13 @@ import {
   TitleGoal,
   LinkStyle,
   NullGoals,
+  MainContainer
 } from "./style";
 import FullContainer from "../../components/FullContainer";
 import ContainerDashboard from "../../components/ContainerDashboard";
 import Header from "../../components/Header";
 import ContainerCard from "../../components/ContainerCard";
-import Null from "../../assets/img/nothing-registered.svg";
-import seta from "../../assets/img/seta.svg";
+import arrowImg from "../../assets/img/seta.svg";
 import habitIcon from "../../assets/img/habitIcon.svg";
 import groupIcon from "../../assets/img/image_group.svg";
 import Loader from "../../components/Loader";
@@ -45,8 +45,6 @@ const Dashboard = () => {
     return <Redirect to="/" />;
   }
 
-  console.log(userGroups);
-
   return (
     <FullContainer>
       <Header />
@@ -54,7 +52,7 @@ const Dashboard = () => {
         {isLoading ? (
           <Loader />
         ) : (
-          <>
+          <MainContainer>
             <ContainerCard title="Grupos" width="22%">
               {!!userGroups[0] ? (
                 <>
@@ -68,7 +66,7 @@ const Dashboard = () => {
                   </List>
                   <SeeMore onClick={() => history.push("/dashboard/groups")}>
                     <span>ver mais</span>
-                    <IconeSeta src={seta} alt="Seta" />
+                    <ArrowIcon src={arrowImg} alt="Seta" />
                   </SeeMore>
                 </>
               ) : (
@@ -103,8 +101,7 @@ const Dashboard = () => {
                 </List>
               ) : (
                 <NullGoals>
-                  sem metas cadastradas
-                  <img src={Null} alt="" />
+                <p>Sem metas cadastradas</p>  
                 </NullGoals>
               )}
             </ContainerCard>
@@ -121,7 +118,7 @@ const Dashboard = () => {
                   </List>
                   <SeeMore onClick={() => history.push("/dashboard/habits")}>
                     <span>ver mais</span>
-                    <IconeSeta src={seta} alt="Seta" />
+                    <ArrowIcon src={arrowImg} alt="Seta" />
                   </SeeMore>
                 </>
               ) : (
@@ -131,7 +128,7 @@ const Dashboard = () => {
                 </div>
               )}
             </ContainerCard>
-          </>
+          </MainContainer>
         )}
       </ContainerDashboard>
     </FullContainer>
