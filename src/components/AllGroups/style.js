@@ -16,6 +16,7 @@ export const ContainerStyled = styled.div`
 export const ContainerGroups = styled.div`
   width: 80%;
   height: 100%;
+  max-height: 285px;
   display: flex;
   align-items: center;
   justify-content: space-between;
