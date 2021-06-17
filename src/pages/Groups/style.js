@@ -13,10 +13,6 @@ export const StyledMenuItem = withStyles((theme) => ({
 }))(MenuItem);
 
 export const useStyles = makeStyles((theme) => ({
-  container: {
-    display: "flex",
-    flexWrap: "wrap",
-  },
   textField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
@@ -25,7 +21,6 @@ export const useStyles = makeStyles((theme) => ({
 }));
 
 export const Container = styled.div`
-  height: 80%;
   width: 100%;
   padding: 24px 8px;
   display: flex;
@@ -48,6 +43,7 @@ export const Container = styled.div`
 export const GroupContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  padding-top: 24px;
 
   button {
     height: 24px;
