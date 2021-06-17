@@ -205,7 +205,7 @@ const Groups = () => {
     setOpenOptions(null);
   };
 
-  const submitGroup = (data) => {
+  const submitGroup = (data, e) => {
     const groupData = {
       name: data.name,
       description: data.description,
@@ -213,6 +213,7 @@ const Groups = () => {
     };
     createGroup(groupData);
     handleFormGroup();
+    e.target.reset();
   };
 
   const handleLeave = (id) => {

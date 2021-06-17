@@ -35,30 +35,34 @@ const GoalCard = ({ goal, members }) => {
     handleConfirm();
   };
 
-  const handleUpdate  = () => {
-    updateGoal(id, group, members, how_much_achieved)
-  }
+  const handleUpdate = () => {
+    updateGoal(id, group, members, how_much_achieved);
+  };
 
   return (
     <>
-    <Container>
-      <HeaderContainer>
-        <Ball difficulty={difficulty} />
-        <MoreVertIcon onClick={handleToogle} className="goalMenu" />
-        <p>{title}</p>
-        <FloatButton title="Completar" icon={CheckIcon} onClick={handleUpdate}/>
-      </HeaderContainer>
+      <Container>
+        <HeaderContainer>
+          <Ball difficulty={difficulty} />
+          <MoreVertIcon onClick={handleToogle} className="goalMenu" />
+          <p>{title}</p>
+          <FloatButton
+            title="Completar"
+            icon={CheckIcon}
+            onClick={handleUpdate}
+          />
+        </HeaderContainer>
 
-      <ProgressContainer>
-        <p>
-          Progresso:
-          <span> {how_much_achieved}%</span>
-        </p>
-        <ProgressBar progress={how_much_achieved} />
-      </ProgressContainer>
-    </Container>
+        <ProgressContainer>
+          <p>
+            Progresso:
+            <span> {how_much_achieved}%</span>
+          </p>
+          <ProgressBar progress={how_much_achieved} />
+        </ProgressContainer>
+      </Container>
 
-    <Menu
+      <Menu
         anchorEl={isOpened}
         keepMounted
         open={Boolean(isOpened)}
