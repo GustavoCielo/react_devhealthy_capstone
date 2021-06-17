@@ -73,6 +73,18 @@ export const UserGroupsProvider = ({ children }) => {
       .catch((error) => console.log(error));
   };
 
+  
+  const deleteActivity = (id, groupId) => {
+    api
+      .delete(`/activities/${id}/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => getAGroup(groupId))
+      .catch((error) => console.log(error));
+  };
+
   return (
     <UserGroupsContext.Provider
       value={{
@@ -83,6 +95,7 @@ export const UserGroupsProvider = ({ children }) => {
         addGoal,
         addActivity,
         deleteGoal,
+        deleteActivity
       }}
     >
       {children}
