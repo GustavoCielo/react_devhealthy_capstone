@@ -26,6 +26,7 @@ import {
   MembersList,
   MainContainer,
   useStyles,
+  SearchGroups,
 } from "./style";
 import { Menu, MenuItem, Avatar, TextField } from "@material-ui/core";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
@@ -498,7 +499,10 @@ const Groups = () => {
       </Backdrop>
 
       <Backdrop open={showSearch}>
-        <Button onClick={handleSearch}>Fechar</Button>
+        <SearchGroups>
+          <AllGroups hideButton />
+        <Button onClick={handleSearch} color='secondary'>Fechar</Button>
+        </SearchGroups>
       </Backdrop>
     </>
   );
