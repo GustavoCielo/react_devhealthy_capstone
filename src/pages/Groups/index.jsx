@@ -141,6 +141,8 @@ const Groups = () => {
     },
   ];
 
+  const todayDate = new Date().toISOString();
+
   const handleToogle = (e) => {
     setIsOpened(e.currentTarget);
   };
@@ -299,11 +301,15 @@ const Groups = () => {
                 <ContainerCard title="Atividades" width="30%" maxHeigth="300">
                   {!!actualGroup?.activities[0] ? (
                     <ActivitiesContainer>
-                      {actualGroup.activities.map((activity) => (
-                        <li key={activity.id}>
-                          <ActivityCard activity={activity} />
-                        </li>
-                      ))}
+                      {actualGroup.activities
+                        .filter(
+                          (activity) => activity.realization_time >= todayDate
+                        )
+                        .map((activity) => (
+                          <li key={activity.id}>
+                            <ActivityCard activity={activity} />
+                          </li>
+                        ))}
                     </ActivitiesContainer>
                   ) : (
                     <NothingToShow>
@@ -314,11 +320,16 @@ const Groups = () => {
                 <ContainerCard title="Metas" width="40%" maxHeigth="300">
                   {!!actualGroup.goals[0] ? (
                     <GoalsContainer>
-                      {actualGroup.goals.map((goal) => (
-                        <li key={goal.id}>
-                          <GoalCard goal={goal} members={actualGroup.users_on_group.length}/>
-                        </li>
-                      ))}
+                      {actualGroup.goals
+                        .filter((goal) => goal.achieved === false)
+                        .map((goal) => (
+                          <li key={goal.id}>
+                            <GoalCard
+                              goal={goal}
+                              members={actualGroup.users_on_group.length}
+                            />
+                          </li>
+                        ))}
                     </GoalsContainer>
                   ) : (
                     <NothingToShow>

@@ -74,7 +74,6 @@ export const UserGroupsProvider = ({ children }) => {
       .catch((error) => console.log(error));
   };
 
-  
   const deleteActivity = (activityId, groupId) => {
     api
       .delete(`/activities/${activityId}/`, {
@@ -109,6 +108,10 @@ export const UserGroupsProvider = ({ children }) => {
       findGoal.completed = true;
       const achieved = howMuch + Math.ceil(100 / members);
 
+      if (achieved >= 100) {
+        toast.success("Muito bem, meta alcançada!");
+      }
+
       const data = {
         how_much_achieved: achieved,
         achieved: achieved >= 100 ? true : false,
@@ -138,7 +141,7 @@ export const UserGroupsProvider = ({ children }) => {
         addActivity,
         deleteGoal,
         deleteActivity,
-        updateGoal
+        updateGoal,
       }}
     >
       {children}
