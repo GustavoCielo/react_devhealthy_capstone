@@ -10,3 +10,13 @@ export const Container = styled.div`
     font-size: 0.8rem;
   }
 `;
+
+export const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .activityMenu {
+    cursor: pointer;
+  }
+`;

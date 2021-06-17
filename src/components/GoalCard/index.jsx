@@ -7,8 +7,8 @@ import ProgressBar from "../ProgressBar";
 import FloatButton from "../FloatButton";
 import Backdrop from "../Backdrop";
 import Button from "../Button";
-import { Container, HeaderContainer, Ball, ProgressContainer } from "./style";
 import { useUserGroups } from "../../contexts/UserGroups";
+import { Container, HeaderContainer, Ball, ProgressContainer } from "./style";
 
 const GoalCard = ({ goal }) => {
   const [openConfirm, setOpenConfirm] = useState(false);
