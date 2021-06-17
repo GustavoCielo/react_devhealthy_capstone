@@ -10,12 +10,12 @@ import Button from "../Button";
 import { useUserGroups } from "../../contexts/UserGroups";
 import { Container, HeaderContainer, Ball, ProgressContainer } from "./style";
 
-const GoalCard = ({ goal }) => {
+const GoalCard = ({ goal, members }) => {
   const [openConfirm, setOpenConfirm] = useState(false);
   const [isOpened, setIsOpened] = useState(null);
   const { title, difficulty, how_much_achieved, id, group } = goal;
 
-  const { deleteGoal } = useUserGroups();
+  const { deleteGoal, updateGoal } = useUserGroups();
 
   const handleToogle = (e) => {
     setIsOpened(e.currentTarget);
@@ -35,6 +35,10 @@ const GoalCard = ({ goal }) => {
     handleConfirm();
   };
 
+  const handleUpdate  = () => {
+    updateGoal(id, group, members)
+  }
+
   return (
     <>
     <Container>
@@ -42,7 +46,7 @@ const GoalCard = ({ goal }) => {
         <Ball difficulty={difficulty} />
         <MoreVertIcon onClick={handleToogle} className="goalMenu" />
         <p>{title}</p>
-        <FloatButton title="Completar" icon={CheckIcon} />
+        <FloatButton title="Completar" icon={CheckIcon} onClick={handleUpdate}/>
       </HeaderContainer>
 
       <ProgressContainer>

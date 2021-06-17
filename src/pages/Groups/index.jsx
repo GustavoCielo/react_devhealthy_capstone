@@ -314,7 +314,7 @@ const Groups = () => {
                     <GoalsContainer>
                       {actualGroup.goals.map((goal) => (
                         <li key={goal.id}>
-                          <GoalCard goal={goal} />
+                          <GoalCard goal={goal} members={actualGroup.users_on_group.length}/>
                         </li>
                       ))}
                     </GoalsContainer>

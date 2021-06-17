@@ -5,6 +5,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { theme } from "./styles/theme";
 import GlobalStyle from "./styles/global";
+import LogoLoader from "./components/LogoLoader"
 import Routes from "./routes";
 
 const App = () => {
@@ -21,7 +22,7 @@ const App = () => {
       <CssBaseline />
       <GlobalStyle />
       <ToastContainer />
-      {!loading && <Routes />}
+      {loading ? <LogoLoader/> : <Routes />}
     </ThemeProvider>
   );
 };
