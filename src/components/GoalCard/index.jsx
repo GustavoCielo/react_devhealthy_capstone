@@ -36,7 +36,7 @@ const GoalCard = ({ goal, members }) => {
   };
 
   const handleUpdate  = () => {
-    updateGoal(id, group, members)
+    updateGoal(id, group, members, how_much_achieved)
   }
 
   return (
