@@ -56,13 +56,29 @@ The application allows users to register healthy habits they want to acquire, in
 ### Mobile
 
 <p align="center">
-  <img alt="dashboardMobile" title="#dasboardMobile" src="/uploads/4284bd9daa1abdb62952ff1b381e1b19/dashboardMobile.png" width="200px">
+  <img alt="Dashboard Mobile" title="#dasboardMobile" src="/uploads/4284bd9daa1abdb62952ff1b381e1b19/dashboardMobile.png" width="200px">
+
+  <img alt="Dashboard Groups Mobile" title="#dashboardGroupsMobile" src="/uploads/67734debddc21f69876492ff7cc5d922/dashboardGroupsMobile.png" width="200px">
+
+  <img alt="Habits Mobile" title="#habitsMobile" src="/uploads/3ee4a54516f86bc721e30602e70bbd23/habitsMobile.png" width="200px">
+
+  <img alt="Groups Mobile" title="#groupsMobile" src="/uploads/95b5890934c693308bbc92ea02a202cd/groupsMobile.png" width="200px">
 </p>
 
 ### Web
 
 <p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
-  <img alt="Home Page" title="#HomePage" src="/uploads/29836726e26767575ed2178151f26143/homepage.png" width="400px">
+  <img alt="Home Page" title="#HomePage" src="/uploads/3cdfd95112f64d45515d44fad2aa80d0/homePage.png" width="400px">
+
+   <img alt="Register Page" title="#RegisterPage" src="/uploads/4782c32a29a47d82e44b2cf940d8548e/registerPage.png" width="400px">
+
+   <img alt="Dashboard Page" title="#DashboardPage" src="/uploads/853b1bff566faa987c887f2ca00220cf/dashboardPage.png" width="400px">
+
+   <img alt="Habits Page" title="#HabitsPage" src="/uploads/a7f38d5747a5f66c39ccd5508c9085dc/habitsPage.png" width="400px">
+
+   <img alt="Choosen Groups Page" title="#ChoosenGroupsPage" src="/uploads/63bab0a2b7ba8943bb1b9b0e002a898c/choosenGroupPage.png" width="400px">
+
+   <img alt="Groups Page" title="#GroupsPage" src="/uploads/47ae8f7bc148fb969a8e1c3d4a6b1a7d/groupsPage.png" width="400px">
 </p>
 
 ## 🛠 Tech Stack
