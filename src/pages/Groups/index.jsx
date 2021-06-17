@@ -201,9 +201,9 @@ const Groups = () => {
   };
 
   const handleFormGroup = () => {
-    reset();
     setShowFormGroup(!showFormGroup);
     setOpenOptions(null);
+    reset();
   };
 
   const submitGroup = (data, e) => {
@@ -404,6 +404,7 @@ const Groups = () => {
                 color="primary"
                 greenIcon
                 onClick={handleFormGoal}
+                type="reset"
               />
               <FloatButton title="Criar Meta" icon={DoneIcon} type="submit" />
             </div>
@@ -443,6 +444,7 @@ const Groups = () => {
               color="primary"
               greenIcon
               onClick={handleFormActivity}
+              type="reset"
             />
             <FloatButton
               title="Criar Atividade"
@@ -491,6 +493,7 @@ const Groups = () => {
                 color="primary"
                 greenIcon
                 onClick={handleFormGroup}
+                type="reset"
               />
               <FloatButton title="Criar Grupo" icon={DoneIcon} type="submit" />
             </div>
