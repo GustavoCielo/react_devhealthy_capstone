@@ -52,7 +52,7 @@ const Groups = () => {
   const [showFormGoal, setShowFormGoal] = useState(false);
   const [showFormActivity, setShowFormActivity] = useState(false);
   const [showFormGroup, setShowFormGroup] = useState(false);
-  const [showSearch, setShowSearch] = useState(false)
+  const [showSearch, setShowSearch] = useState(false);
   const { token, userGroups, getGroups, getProfile, hasGroup } = useUser();
   const {
     createGroup,
@@ -72,7 +72,9 @@ const Groups = () => {
     goalTitle: yup.string().max(50, "Máximo de 50 caracteres"),
     difficulty: yup.string(),
     activityTitle: yup.string().max(50, "Máximo de 50 caracteres"),
-    realization_time: yup.date().min(new Date().toDateString(), "Data inválida"),
+    realization_time: yup
+      .date()
+      .min(new Date().toDateString(), "Data inválida"),
   });
 
   const methods = useForm({
@@ -221,7 +223,7 @@ const Groups = () => {
   const handleSearch = () => {
     setShowSearch(!showSearch);
     setOpenOptions(null);
-  }
+  };
 
   if (!token) {
     return <Redirect to="/" />;
@@ -294,7 +296,7 @@ const Groups = () => {
                 </Menu>
               </GroupContainer>
               <MainContainer>
-                <ContainerCard title="Atividades" width="30%">
+                <ContainerCard title="Atividades" width="30%" maxHeigth="300">
                   {!!actualGroup?.activities[0] ? (
                     <ActivitiesContainer>
                       {actualGroup.activities.map((activity) => (
@@ -309,7 +311,7 @@ const Groups = () => {
                     </NothingToShow>
                   )}
                 </ContainerCard>
-                <ContainerCard title="Metas" width="40%">
+                <ContainerCard title="Metas" width="40%" maxHeigth="300">
                   {!!actualGroup.goals[0] ? (
                     <GoalsContainer>
                       {actualGroup.goals.map((goal) => (
@@ -324,7 +326,12 @@ const Groups = () => {
                     </NothingToShow>
                   )}
                 </ContainerCard>
-                <ContainerCard title="Membros" width="20%">
+                <ContainerCard
+                  title="Membros"
+                  width="20%"
+                  minHeigth="300"
+                  maxHeigth="300"
+                >
                   <MembersList>
                     {actualGroup.users_on_group.map((item) => (
                       <li key={item.id}>
@@ -477,9 +484,8 @@ const Groups = () => {
           </Form>
         </FormProvider>
       </Backdrop>
- 
+
       <Backdrop open={showSearch}>
-   
         <Button onClick={handleSearch}>Fechar</Button>
       </Backdrop>
     </>
