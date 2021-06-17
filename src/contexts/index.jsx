@@ -8,11 +8,11 @@ const ContextProvider = ({ children }) => {
   return (
     <AuthProvider>
       <UserProvider>
-        <GroupsProvider>
-          <UserGroupsProvider>
+        <UserGroupsProvider>
+          <GroupsProvider>
             <ModalProvider>{children}</ModalProvider>
-          </UserGroupsProvider>
-        </GroupsProvider>
+          </GroupsProvider>
+        </UserGroupsProvider>
       </UserProvider>
     </AuthProvider>
   );
