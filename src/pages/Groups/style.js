@@ -167,13 +167,25 @@ export const SearchGroups = styled.div`
   width: 70%;
   height: 100%;
   margin: 0 auto;
-  background: rgba(227, 150, 223, 0.4);
+  background: rgba(227, 150, 223, 0.6);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
   border-radius: 10px;
-  @media(max-width: 1105px){
-    width: 60%;
-    max-height: 600px;
+
+  overflow: hidden scroll;
+
+  &::-webkit-scrollbar {
+    width: 0.25rem;
   }
-`
+  &::-webkit-scrollbar-track {
+    background-color: #fafafa;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #e2b6cf;
+  }
+
+  @media (max-width: 1105px) {
+    width: 80%;
+    height: 80%;
+    max-height: 550px;
+  }
+`;

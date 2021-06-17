@@ -501,8 +501,8 @@ const Groups = () => {
       <Backdrop open={showSearch}>
         <SearchGroups>
           <AllGroups hideButton />
-        <Button onClick={handleSearch} color='secondary'>Fechar</Button>
         </SearchGroups>
+        <Button onClick={handleSearch}>Fechar</Button>
       </Backdrop>
     </>
   );
