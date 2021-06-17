@@ -16,7 +16,6 @@ export const ContainerStyled = styled.div`
 export const ContainerGroups = styled.div`
   width: 80%;
   height: 100%;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -110,7 +109,7 @@ export const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 0 8px;
+  padding: 0 8px 36px;
 `;
 
 export const FilterContainer = styled.nav`

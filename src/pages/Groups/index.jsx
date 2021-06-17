@@ -52,6 +52,7 @@ const Groups = () => {
   const [showFormGoal, setShowFormGoal] = useState(false);
   const [showFormActivity, setShowFormActivity] = useState(false);
   const [showFormGroup, setShowFormGroup] = useState(false);
+  const [showSearch, setShowSearch] = useState(false)
   const { token, userGroups, getGroups, getProfile, hasGroup } = useUser();
   const {
     createGroup,
@@ -217,6 +218,11 @@ const Groups = () => {
     handleConfirm();
   };
 
+  const handleSearch = () => {
+    setShowSearch(!showSearch);
+    setOpenOptions(null);
+  }
+
   if (!token) {
     return <Redirect to="/" />;
   }
@@ -282,14 +288,14 @@ const Groups = () => {
                   <MenuItem onClick={handleFormGroup}>
                     <AddCircleOutlineIcon /> Criar grupo
                   </MenuItem>
-                  <MenuItem>
+                  <MenuItem onClick={handleSearch}>
                     <SearchIcon /> Pesquisar grupos
                   </MenuItem>
                 </Menu>
               </GroupContainer>
               <MainContainer>
                 <ContainerCard title="Atividades" width="35%">
-                  {!!actualGroup.activities[0] ? (
+                  {!!actualGroup?.activities[0] ? (
                     <ActivitiesContainer>
                       {actualGroup.activities.map((activity) => (
                         <li key={activity.id}>
@@ -468,6 +474,11 @@ const Groups = () => {
             </div>
           </Form>
         </FormProvider>
+      </Backdrop>
+ 
+      <Backdrop open={showSearch}>
+   
+        <Button onClick={handleSearch}>Fechar</Button>
       </Backdrop>
     </>
   );
