@@ -86,7 +86,11 @@ export const UserGroupsProvider = ({ children }) => {
       .catch((error) => console.log(error));
   };
 
+<<<<<<< HEAD
+  const updateGoal = (goalId, groupId, members, howMuch) => {
+=======
   const updateGoal = (goalId, groupId, members) => {
+>>>>>>> 37c965727d354ef2ee53d1b868c95be98a4682f0
     const goalsData = JSON.parse(localStorage.getItem("@Dev:goals")) || [];
 
     if (!goalsData.find((user) => user.user === id)) {
@@ -107,7 +111,7 @@ export const UserGroupsProvider = ({ children }) => {
       toast.warning("Você já fez sua parte! Agora é com os outros membros :D");
     } else {
       findGoal.completed = true;
-      const achieved = Math.ceil(100 / members);
+      const achieved = howMuch + Math.ceil(100 / members);
 
       const data = {
         how_much_achieved: achieved,
