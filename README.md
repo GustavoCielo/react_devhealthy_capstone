@@ -1,8 +1,8 @@
 <div align="center">
     <br>
-    <img  src="/uploads/9a82c7d52e43dc81940966650ebb1a02/logo_img.svg" width="260px" alt="Ícone Logo Dev Healthy" />
+    <img  src="/uploads/43314b7a3af6507c44bec6279bbfe159/iconLogo.svg" width="260px" alt="Ícone Logo Dev Healthy" />
     <br>
-    <img src="/uploads/64c45c14c5f1610d64782bdac6717d8c/logo_desc.svg" width="250px" alt="Logo Dev Healthy" />
+    <img src="/uploads/c22846d420405f9b1d083f5fdebfe046/textLogo.svg" width="250px" alt="Logo Dev Healthy" />
     <br><br>
 </div>
 
@@ -55,10 +55,14 @@ The application allows users to register healthy habits they want to acquire, in
 
 ### Mobile
 
+<p align="center">
+  <img alt="dashboardMobile" title="#dasboardMobile" src="/uploads/4284bd9daa1abdb62952ff1b381e1b19/dashboardMobile.png" width="200px">
+</p>
+
 ### Web
 
 <p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
-  <img alt="Home Page" title="#HomePage" src="/uploads/eba0534705aaac47361282474aa78346/homepage.png" width="400px">
+  <img alt="Home Page" title="#HomePage" src="/uploads/29836726e26767575ed2178151f26143/homepage.png" width="400px">
 </p>
 
 ## 🛠 Tech Stack
