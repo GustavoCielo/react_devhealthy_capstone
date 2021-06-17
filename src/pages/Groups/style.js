@@ -162,3 +162,18 @@ export const MembersList = styled.ul`
     }
   }
 `;
+
+export const SearchGroups = styled.div`
+  width: 70%;
+  height: 100%;
+  margin: 0 auto;
+  background: rgba(227, 150, 223, 0.4);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 10px;
+  @media(max-width: 1105px){
+    width: 60%;
+    max-height: 600px;
+  }
+`

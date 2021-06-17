@@ -32,7 +32,7 @@ import SelectInput from "../../components/SelectInput";
 import IconsGroups from "../../components/IconsGroups";
 import { useUser } from "../../contexts/User";
 
-const AllGroups = () => {
+const AllGroups = ({ hideButton }) => {
   const {
     groups,
     handleNext,
@@ -130,21 +130,25 @@ const AllGroups = () => {
               onChange={(e) => setInputSearch(e.target.value)}
             />
           </InputStyled>
-          <Hidden smUp>
-            <FloatButton
-              title="Criar Grupo"
-              icon={AddIcon}
-              onClick={createGroupByUser}
-              color="primary"
-              greenIcon
-            />
-          </Hidden>
+          {!hideButton && (
+            <>
+              <Hidden smUp>
+                <FloatButton
+                  title="Criar Grupo"
+                  icon={AddIcon}
+                  onClick={createGroupByUser}
+                  color="primary"
+                  greenIcon
+                />
+              </Hidden>
 
-          <Hidden only="xs">
-            <Button color="secondary" onClick={createGroupByUser}>
-              <AiFillPlusCircle /> Criar Grupo
-            </Button>
-          </Hidden>
+              <Hidden only="xs">
+                <Button color="secondary" onClick={createGroupByUser}>
+                  <AiFillPlusCircle /> Criar Grupo
+                </Button>
+              </Hidden>
+            </>
+          )}
         </ContainerControlers>
         <FilterContainer>
           <ul>
