@@ -18,7 +18,6 @@ import GroupCard from "../GroupCard";
 import Modal from "../Modal";
 import FloatButton from "../FloatButton";
 import Button from "../Button";
-import image_group from "../../assets/img/image_group.svg";
 import { useUserGroups } from "../../contexts/UserGroups";
 import { useForm, FormProvider } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -30,9 +29,10 @@ import CloseIcon from "@material-ui/icons/Close";
 import AddIcon from "@material-ui/icons/Add";
 import Form from "../Form";
 import SelectInput from "../../components/SelectInput";
+import IconsGroups from "../../components/IconsGroups";
 import { useUser } from "../../contexts/User";
 
-const AllGroups = () => {
+const AllGroups = ({ hideButton }) => {
   const {
     groups,
     handleNext,
@@ -44,16 +44,17 @@ const AllGroups = () => {
     setInputSearch,
     getGroupsByCategory,
   } = useGroups();
-  const {getGroups} = useUser()
+  const { getGroups } = useUser();
   const { isVisible, handleModal } = useModal();
   const [modalInfo, setModalInfo] = useState();
   const [open, setOpen] = useState(false);
-  const { createGroup } = useUserGroups();
+  const { createGroup, getAGroup } = useUserGroups();
   const [isVisibleCreateGroup, setIsVisibleCreateGroup] = useState(false);
 
   const schema = yup.object().shape({
     name: yup.string().min(3, "Mínimo de 3 caracteres"),
     description: yup.string().min(6, "Mínimo de 6 caracteres"),
+    category: yup.string(),
   });
 
   const methods = useForm({
@@ -113,6 +114,7 @@ const AllGroups = () => {
     conEnterGroup(id);
     handleModal();
     getGroups();
+    getAGroup(id);
   };
 
   return (
@@ -128,21 +130,25 @@ const AllGroups = () => {
               onChange={(e) => setInputSearch(e.target.value)}
             />
           </InputStyled>
-          <Hidden smUp>
-            <FloatButton
-              title="Criar Grupo"
-              icon={AddIcon}
-              onClick={createGroupByUser}
-              color="primary"
-              greenIcon
-            />
-          </Hidden>
+          {!hideButton && (
+            <>
+              <Hidden smUp>
+                <FloatButton
+                  title="Criar Grupo"
+                  icon={AddIcon}
+                  onClick={createGroupByUser}
+                  color="primary"
+                  greenIcon
+                />
+              </Hidden>
 
-          <Hidden only="xs">
-            <Button color="secondary" onClick={createGroupByUser}>
-              <AiFillPlusCircle /> Criar Grupo
-            </Button>
-          </Hidden>
+              <Hidden only="xs">
+                <Button color="secondary" onClick={createGroupByUser}>
+                  <AiFillPlusCircle /> Criar Grupo
+                </Button>
+              </Hidden>
+            </>
+          )}
         </ContainerControlers>
         <FilterContainer>
           <ul>
@@ -184,6 +190,7 @@ const AllGroups = () => {
                       <GroupCard
                         key={group.id}
                         name={group.name}
+                        category={group.category}
                         handleClick={() =>
                           handleClick({
                             id: group.id,
@@ -200,6 +207,7 @@ const AllGroups = () => {
                     <GroupCard
                       key={group.id}
                       name={group.name}
+                      category={group.category}
                       handleClick={() =>
                         handleClick({
                           id: group.id,
@@ -225,16 +233,16 @@ const AllGroups = () => {
           <InternContainer>
             <div className="Header">
               <figure>
-                <img src={image_group} alt="logo" />
+                <IconsGroups category={modalInfo?.category} modal />
               </figure>
-              <h4>{modalInfo.name}</h4>
+              <h4>{modalInfo?.name}</h4>
             </div>
             <div className="Body">
               <p>
-                <span>Descrição:</span> {modalInfo.description}
+                <span>Descrição:</span> {modalInfo?.description}
               </p>
               <p>
-                <span>Categoria:</span> {modalInfo.category.split("-")[1]}
+                <span>Categoria:</span> {modalInfo?.category.split("-")[1]}
               </p>
             </div>
 

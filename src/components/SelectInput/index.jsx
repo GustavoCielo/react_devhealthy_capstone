@@ -10,8 +10,8 @@ const SelectInput = ({ name, label, title, options, icon: Icon, ...rest }) => {
     <Controller
       render={({ field }) => (
         <FormControl>
-          <InputLabel htmlFor={name}>{title}</InputLabel>
-          <Select id={name} {...rest} {...field}>
+          <InputLabel htmlFor={name} >{title}</InputLabel>
+          <Select id={name} {...rest} {...field} className={classes.container}>
             <MenuItem value="" disabled>
               <em>{title}</em>
             </MenuItem>
