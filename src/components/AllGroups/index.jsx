@@ -54,6 +54,7 @@ const AllGroups = () => {
   const schema = yup.object().shape({
     name: yup.string().min(3, "Mínimo de 3 caracteres"),
     description: yup.string().min(6, "Mínimo de 6 caracteres"),
+    category: yup.string(),
   });
 
   const methods = useForm({
