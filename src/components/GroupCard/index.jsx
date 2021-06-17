@@ -1,12 +1,12 @@
 import { ContainerCard } from "./style.js";
-import ImageGroup from "../../assets/img/image_group.svg";
+import IconsGroups from '../../components/IconsGroups'
 
-const GroupCard = ({ name, handleClick }) => {
+const GroupCard = ({ name, handleClick, category }) => {
   return (
     <>
       <ContainerCard onClick={handleClick}>
         <figure>
-          <img src={ImageGroup} alt="nome do grupo" />
+          <IconsGroups category={category} />
         </figure>
         <p>{name}</p>
       </ContainerCard>

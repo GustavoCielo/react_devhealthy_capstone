@@ -9,6 +9,7 @@ export const Container = styled.div`
 
   .habitMenu {
     font-size: 0.8rem;
+    cursor: pointer;
   }
 
   Button,

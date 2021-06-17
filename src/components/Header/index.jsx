@@ -52,7 +52,7 @@ const Header = () => {
       .max(12, "máximo de 12 letras")
       .matches(
         "^(?=.{3,12}$)(?![_. ])(?!.*[_. ]{2})[a-z]+(?<![_. ])$",
-        "Somente letras minúsculas e nenhum acento"
+        "Somente letras minúsculas"
       ),
     email: yup.string().email("E-mail inválido"),
   });

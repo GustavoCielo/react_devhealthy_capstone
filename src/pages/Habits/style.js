@@ -30,28 +30,6 @@ export const Container = styled.main`
   }
 `;
 
-export const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-
-  Button:first-child {
-    width: fit-content;
-  }
-
-  .MuiSelect-select {
-    display: flex;
-    width: 210px;
-    align-items: center;
-    justify-content: space-between;
-
-    svg {
-      color: #e365c1;
-    }
-  }
-`;
-
 export const HabitContainer = styled.ul`
   display: flex;
   flex-wrap: wrap;

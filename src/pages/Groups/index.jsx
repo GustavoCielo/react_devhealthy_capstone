@@ -7,11 +7,11 @@ import Form from "../../components/Form";
 import Input from "../../components/Input";
 import SelectInput from "../../components/SelectInput";
 import ContainerCard from "../../components/ContainerCard";
+import IconsGroups from "../../components/IconsGroups";
 import GroupIcon from "@material-ui/icons/Group";
 import SearchIcon from "@material-ui/icons/Search";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
-import ImageGroup from "../../assets/img/image_group.svg";
 import CloseIcon from "@material-ui/icons/Close";
 import DoneIcon from "@material-ui/icons/Done";
 import {
@@ -26,6 +26,7 @@ import {
   MembersList,
   MainContainer,
   useStyles,
+  SearchGroups,
 } from "./style";
 import { Menu, MenuItem, Avatar, TextField } from "@material-ui/core";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
@@ -51,6 +52,8 @@ const Groups = () => {
   const [confirmExit, setConfirmExit] = useState(false);
   const [showFormGoal, setShowFormGoal] = useState(false);
   const [showFormActivity, setShowFormActivity] = useState(false);
+  const [showFormGroup, setShowFormGroup] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
   const { token, userGroups, getGroups, getProfile, hasGroup } = useUser();
   const {
     createGroup,
@@ -66,10 +69,13 @@ const Groups = () => {
   const schema = yup.object().shape({
     name: yup.string().min(3, "Mínimo de 3 caracteres"),
     description: yup.string().min(6, "Mínimo de 6 caracteres"),
+    category: yup.string(),
     goalTitle: yup.string().max(50, "Máximo de 50 caracteres"),
     difficulty: yup.string(),
     activityTitle: yup.string().max(50, "Máximo de 50 caracteres"),
-    realization_time: yup.string(),
+    realization_time: yup
+      .date()
+      .min(new Date().toDateString(), "Data inválida"),
   });
 
   const methods = useForm({
@@ -117,6 +123,27 @@ const Groups = () => {
     },
   ];
 
+  const categoryOptions = [
+    {
+      id: "DevHealthy-Saúde",
+      label: "Saúde",
+    },
+    {
+      id: "DevHealthy-Hobby",
+      label: "Hobby",
+    },
+    {
+      id: "DevHealthy-Estudo",
+      label: "Estudo",
+    },
+    {
+      id: "DevHealthy-Culinária",
+      label: "Culinária",
+    },
+  ];
+
+  const todayDate = new Date().toISOString();
+
   const handleToogle = (e) => {
     setIsOpened(e.currentTarget);
   };
@@ -133,10 +160,6 @@ const Groups = () => {
   const selectGroup = (id) => {
     getAGroup(id);
     setIsOpened(null);
-  };
-
-  const submitGroup = (data) => {
-    createGroup(data);
   };
 
   const handleConfirm = () => {
@@ -177,11 +200,33 @@ const Groups = () => {
     handleFormActivity();
   };
 
+  const handleFormGroup = () => {
+    reset();
+    setShowFormGroup(!showFormGroup);
+    setOpenOptions(null);
+  };
+
+  const submitGroup = (data, e) => {
+    const groupData = {
+      name: data.name,
+      description: data.description,
+      category: data.category,
+    };
+    createGroup(groupData);
+    handleFormGroup();
+    e.target.reset();
+  };
+
   const handleLeave = (id) => {
     leaveGroup(id);
     getAGroup(userGroups[0].id);
     getGroups();
     handleConfirm();
+  };
+
+  const handleSearch = () => {
+    setShowSearch(!showSearch);
+    setOpenOptions(null);
   };
 
   if (!token) {
@@ -199,7 +244,11 @@ const Groups = () => {
               <GroupContainer>
                 <ButtonContainer>
                   <GroupCardContainer onClick={handleToogle}>
-                    <img src={ImageGroup} alt={actualGroup.name} />
+                    <IconsGroups
+                      category={actualGroup.category}
+                      alt={actualGroup.name}
+                      modal
+                    />
                     <p>{actualGroup.name}</p>
                     <ArrowDropDownIcon />
                   </GroupCardContainer>
@@ -242,23 +291,27 @@ const Groups = () => {
                   <MenuItem onClick={handleConfirm}>
                     <ExitToAppIcon /> Sair do grupo
                   </MenuItem>
-                  <MenuItem>
+                  <MenuItem onClick={handleFormGroup}>
                     <AddCircleOutlineIcon /> Criar grupo
                   </MenuItem>
-                  <MenuItem>
+                  <MenuItem onClick={handleSearch}>
                     <SearchIcon /> Pesquisar grupos
                   </MenuItem>
                 </Menu>
               </GroupContainer>
               <MainContainer>
-                <ContainerCard title="Atividades" width="35%">
-                  {!!actualGroup.activities[0] ? (
+                <ContainerCard title="Atividades" width="30%" maxHeigth="300">
+                  {!!actualGroup?.activities[0] ? (
                     <ActivitiesContainer>
-                      {actualGroup.activities.map((activity) => (
-                        <li key={activity.id}>
-                          <ActivityCard activity={activity} />
-                        </li>
-                      ))}
+                      {actualGroup.activities
+                        .filter(
+                          (activity) => activity.realization_time >= todayDate
+                        )
+                        .map((activity) => (
+                          <li key={activity.id}>
+                            <ActivityCard activity={activity} />
+                          </li>
+                        ))}
                     </ActivitiesContainer>
                   ) : (
                     <NothingToShow>
@@ -266,14 +319,19 @@ const Groups = () => {
                     </NothingToShow>
                   )}
                 </ContainerCard>
-                <ContainerCard title="Metas" width="35%">
+                <ContainerCard title="Metas" width="40%" maxHeigth="300">
                   {!!actualGroup.goals[0] ? (
                     <GoalsContainer>
-                      {actualGroup.goals.map((goal) => (
-                        <li key={goal.id}>
-                          <GoalCard goal={goal} />
-                        </li>
-                      ))}
+                      {actualGroup.goals
+                        .filter((goal) => goal.achieved === false)
+                        .map((goal) => (
+                          <li key={goal.id}>
+                            <GoalCard
+                              goal={goal}
+                              members={actualGroup.users_on_group.length}
+                            />
+                          </li>
+                        ))}
                     </GoalsContainer>
                   ) : (
                     <NothingToShow>
@@ -281,7 +339,12 @@ const Groups = () => {
                     </NothingToShow>
                   )}
                 </ContainerCard>
-                <ContainerCard title="Membros" width="20%">
+                <ContainerCard
+                  title="Membros"
+                  width="20%"
+                  minHeigth="300"
+                  maxHeigth="300"
+                >
                   <MembersList>
                     {actualGroup.users_on_group.map((item) => (
                       <li key={item.id}>
@@ -365,7 +428,9 @@ const Groups = () => {
             type="datetime-local"
             {...register("realization_time")}
             required
-            defaultValue="2021-06-16T10:30"
+            error={!!errors.realization_time}
+            helperText={errors.realization_time?.message}
+            defaultValue=""
             className={classes.textField}
             InputLabelProps={{
               shrink: true,
@@ -386,6 +451,58 @@ const Groups = () => {
             />
           </div>
         </Form>
+      </Backdrop>
+
+      <Backdrop open={showFormGroup}>
+        <FormProvider {...methods}>
+          <Form onSubmit={handleSubmit(submitGroup)} autoComplete="off">
+            <Input
+              label="Título"
+              register={register}
+              name="name"
+              error={!!errors.name}
+              errorMsg={errors.name?.message}
+              pinkScheme
+              isValidated
+            />
+
+            <SelectInput
+              name="category"
+              title="Categoria"
+              label="Categoria"
+              options={categoryOptions}
+              required
+              style={{ width: 200 }}
+            />
+
+            <Input
+              label="Descrição"
+              register={register}
+              name="description"
+              error={!!errors.description}
+              errorMsg={errors.description?.message}
+              pinkScheme
+              isValidated
+            />
+            <div style={{ display: "flex", gap: 8 }}>
+              <FloatButton
+                title="Cancelar"
+                icon={CloseIcon}
+                color="primary"
+                greenIcon
+                onClick={handleFormGroup}
+              />
+              <FloatButton title="Criar Grupo" icon={DoneIcon} type="submit" />
+            </div>
+          </Form>
+        </FormProvider>
+      </Backdrop>
+
+      <Backdrop open={showSearch}>
+        <SearchGroups>
+          <AllGroups hideButton />
+        </SearchGroups>
+        <Button onClick={handleSearch}>Fechar</Button>
       </Backdrop>
     </>
   );

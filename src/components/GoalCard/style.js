@@ -9,16 +9,15 @@ export const HeaderContainer = styled.div`
   align-items: center;
   width: 100%;
 
+  .goalMenu {
+    cursor: pointer;
+  }
+
   p {
     flex-grow: 1;
     font-weight: bold;
     text-align: center;
     line-break: loose;
-  }
-
-  Button {
-    width: 30px;
-    height: 30px;
   }
 `;
 

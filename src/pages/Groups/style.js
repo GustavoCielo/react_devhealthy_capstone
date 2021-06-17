@@ -13,10 +13,6 @@ export const StyledMenuItem = withStyles((theme) => ({
 }))(MenuItem);
 
 export const useStyles = makeStyles((theme) => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
   textField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
@@ -25,7 +21,6 @@ export const useStyles = makeStyles((theme) => ({
 }));
 
 export const Container = styled.div`
-  height: 100%;
   width: 100%;
   padding: 24px 8px;
   display: flex;
@@ -48,6 +43,7 @@ export const Container = styled.div`
 export const GroupContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  padding-top: 24px;
 
   button {
     height: 24px;
@@ -66,15 +62,15 @@ export const MainContainer = styled.main`
   justify-content: space-between;
   align-items: flex-start;
   flex-grow: 1;
-  
 `;
 
 export const NothingToShow = styled.div`
-  height: 100%;
-  min-height: 300px;
+  height: 300px;
+  width: 100%;
   background: url(${bgImage}) no-repeat center;
   background-size: contain;
   text-align: center;
+  margin: auto;
 
   @media (max-width: 600px) {
     min-height: 200px;
@@ -98,21 +94,20 @@ export const GoalsContainer = styled.ul`
   &::-webkit-scrollbar-thumb {
     background-color: #e2b6cf;
   }
-
 `;
 
 export const ActivitiesContainer = styled.ul`
   overflow: hidden scroll;
 
-&::-webkit-scrollbar {
-  width: 0.25rem;
-}
-&::-webkit-scrollbar-track {
-  background-color: #fafafa;
-}
-&::-webkit-scrollbar-thumb {
-  background-color: #e2b6cf;
-}
+  &::-webkit-scrollbar {
+    width: 0.25rem;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #fafafa;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #e2b6cf;
+  }
 `;
 
 export const GroupCardContainer = styled.div`
@@ -124,10 +119,7 @@ export const GroupCardContainer = styled.div`
   cursor: pointer;
 
   &:hover > svg {
-      color: #e365c1;
-    }
-  img {
-    width: 32px;
+    color: #e365c1;
   }
 
   img:last-child {
@@ -138,10 +130,8 @@ export const GroupCardContainer = styled.div`
   svg {
     font-size: 2.5rem;
     color: #e396df;
-   
-    transition: color 300ms ease-in-out;
 
- 
+    transition: color 300ms ease-in-out;
   }
 `;
 
@@ -170,5 +160,32 @@ export const MembersList = styled.ul`
       width: 25px;
       height: 25px;
     }
+  }
+`;
+
+export const SearchGroups = styled.div`
+  width: 70%;
+  height: 100%;
+  margin: 0 auto;
+  background: rgba(227, 150, 223, 0.6);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  border-radius: 10px;
+
+  overflow: hidden scroll;
+
+  &::-webkit-scrollbar {
+    width: 0.25rem;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #fafafa;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #e2b6cf;
+  }
+
+  @media (max-width: 1105px) {
+    width: 80%;
+    height: 80%;
+    max-height: 550px;
   }
 `;

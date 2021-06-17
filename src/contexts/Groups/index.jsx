@@ -1,6 +1,7 @@
 import { useState, useEffect, createContext, useContext } from "react";
 import api from "../../services/api.js";
 import { useUser } from "../User/index.jsx";
+import { useUserGroups } from "../UserGroups/index.jsx";
 
 export const GroupsContext = createContext();
 
@@ -11,9 +12,10 @@ export const GroupsProvider = ({ children }) => {
   const [previous, setPrevious] = useState("");
   const [inputSearch, setInputSearch] = useState("");
   const { setHasGroup, getGroups: getUserGroups } = useUser();
+  const { getAGroup } = useUserGroups();
 
   const getGroups = (url) => {
-    api 
+    api
       .get(url)
       .then((res) => {
         setGroups(res.data.results);
@@ -33,8 +35,9 @@ export const GroupsProvider = ({ children }) => {
       })
       .then((res) => {
         getUserGroups();
-        setHasGroup(true)
+        setHasGroup(true);
       })
+      .then(() => getAGroup(id))
       .catch((err) => console.log(err));
   };
 
