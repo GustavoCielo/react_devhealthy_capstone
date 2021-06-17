@@ -294,7 +294,7 @@ const Groups = () => {
                 </Menu>
               </GroupContainer>
               <MainContainer>
-                <ContainerCard title="Atividades" width="35%">
+                <ContainerCard title="Atividades" width="30%">
                   {!!actualGroup?.activities[0] ? (
                     <ActivitiesContainer>
                       {actualGroup.activities.map((activity) => (
@@ -309,7 +309,7 @@ const Groups = () => {
                     </NothingToShow>
                   )}
                 </ContainerCard>
-                <ContainerCard title="Metas" width="35%">
+                <ContainerCard title="Metas" width="40%">
                   {!!actualGroup.goals[0] ? (
                     <GoalsContainer>
                       {actualGroup.goals.map((goal) => (

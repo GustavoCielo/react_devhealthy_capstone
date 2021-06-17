@@ -51,6 +51,17 @@ export const UserGroupsProvider = ({ children }) => {
       .catch((error) => console.log(error));
   };
 
+  const deleteGoal = (id, groupId) => {
+    api
+      .delete(`/goals/${id}/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => getAGroup(groupId))
+      .catch((error) => console.log(error));
+  };
+
   const addActivity = (data, id) => {
     api
       .post("activities/", data, {
@@ -71,6 +82,7 @@ export const UserGroupsProvider = ({ children }) => {
         leaveGroup,
         addGoal,
         addActivity,
+        deleteGoal,
       }}
     >
       {children}
