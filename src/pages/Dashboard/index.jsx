@@ -13,7 +13,7 @@ import {
   TitleGoal,
   LinkStyle,
   NullGoals,
-  MainContainer
+  MainContainer,
 } from "./style";
 import FullContainer from "../../components/FullContainer";
 import ContainerDashboard from "../../components/ContainerDashboard";
@@ -22,7 +22,7 @@ import ContainerCard from "../../components/ContainerCard";
 import arrowImg from "../../assets/img/seta.svg";
 import habitIcon from "../../assets/img/habitIcon.svg";
 import Loader from "../../components/Loader";
-import IconsGroups from '../../components/IconsGroups'
+import IconsGroups from "../../components/IconsGroups";
 
 const Dashboard = () => {
   const { token, getProfile, userGroups, getGroups, habits, getHabits } =
@@ -59,7 +59,7 @@ const Dashboard = () => {
                   <List>
                     {userGroups.map((groups) => (
                       <Content key={groups.id}>
-                        <IconsGroups category={groups.category}/>
+                        <IconsGroups category={groups.category} />
                         <div>{groups.name}</div>
                       </Content>
                     ))}
@@ -84,24 +84,26 @@ const Dashboard = () => {
               ) ? (
                 <List>
                   {userGroups.map((groups) =>
-                    groups.goals.map((goal) => (
-                      <Content key={goal.id}>
-                        <Goals>
-                          <TitleGoal>{goal.title}</TitleGoal>
-                          <LevelDifficulty difficulty={goal.difficulty} />
-                          <NameGroup>grupo: {groups.name}</NameGroup>
-                          <ProgressStyle progress={goal.how_much_achieved}>
-                            Progresso atual:{" "}
-                            <span>{goal.how_much_achieved}%</span>
-                          </ProgressStyle>
-                        </Goals>
-                      </Content>
-                    ))
+                    groups.goals
+                      .filter((goal) => goal.achieved === false)
+                      .map((goal) => (
+                        <Content key={goal.id}>
+                          <Goals>
+                            <TitleGoal>{goal.title}</TitleGoal>
+                            <LevelDifficulty difficulty={goal.difficulty} />
+                            <NameGroup>grupo: {groups.name}</NameGroup>
+                            <ProgressStyle progress={goal.how_much_achieved}>
+                              Progresso atual:{" "}
+                              <span>{goal.how_much_achieved}%</span>
+                            </ProgressStyle>
+                          </Goals>
+                        </Content>
+                      ))
                   )}
                 </List>
               ) : (
                 <NullGoals>
-                <p>Sem metas cadastradas</p>  
+                  <p>Sem metas cadastradas</p>
                 </NullGoals>
               )}
             </ContainerCard>
