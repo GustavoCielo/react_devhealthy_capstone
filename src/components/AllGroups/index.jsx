@@ -233,16 +233,16 @@ const AllGroups = ({ hideButton }) => {
           <InternContainer>
             <div className="Header">
               <figure>
-                <IconsGroups category={modalInfo.category} modal />
+                <IconsGroups category={modalInfo?.category} modal />
               </figure>
-              <h4>{modalInfo.name}</h4>
+              <h4>{modalInfo?.name}</h4>
             </div>
             <div className="Body">
               <p>
-                <span>Descrição:</span> {modalInfo.description}
+                <span>Descrição:</span> {modalInfo?.description}
               </p>
               <p>
-                <span>Categoria:</span> {modalInfo.category.split("-")[1]}
+                <span>Categoria:</span> {modalInfo?.category.split("-")[1]}
               </p>
             </div>
 

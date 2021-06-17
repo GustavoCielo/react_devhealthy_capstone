@@ -64,7 +64,6 @@ export const InternContainer = styled.div`
       font-weight: 600;
     }
   }
-
 `;
 
 export const ContainerControlers = styled.div`
@@ -78,7 +77,6 @@ export const ContainerControlers = styled.div`
   Button {
     font-size: 1rem;
   }
-    
 `;
 
 export const InputStyled = styled.div`
@@ -113,9 +111,9 @@ export const Container = styled.div`
 `;
 
 export const FilterContainer = styled.nav`
-
   ul {
-  display: flex;
+    display: flex;
+    flex-wrap: wrap;
     gap: 4px;
     li {
       cursor: pointer;
@@ -138,7 +136,7 @@ export const FilterContainer = styled.nav`
         width: 100%;
         height: 100%;
         border-radius: 10px;
-        
+
         color: #938e8e;
 
         display: flex;
@@ -150,6 +148,6 @@ export const FilterContainer = styled.nav`
           text-shadow: 0.5px 0.5px #666666;
         }
       }
+    }
   }
-  }
-`
+`;
