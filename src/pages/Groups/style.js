@@ -165,7 +165,7 @@ export const MembersList = styled.ul`
 
 export const SearchGroups = styled.div`
   width: 70%;
-  height: 100%;
+  height: 90%;
   margin: 0 auto;
   background: rgba(227, 150, 223, 0.6);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
