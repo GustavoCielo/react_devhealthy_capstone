@@ -15,7 +15,7 @@ export const Container = styled.main`
 
   .btnAddHabit {
     width: fit-content;
-    align-self: flex-start;
+    align-self: flex-end;
   }
 
   .habitsTitle {

@@ -7,6 +7,7 @@ export const Container = styled.div`
 export const HeaderContainer = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
   width: 100%;
 
   .goalMenu {
@@ -18,6 +19,7 @@ export const HeaderContainer = styled.div`
     font-weight: bold;
     text-align: center;
     line-break: loose;
+    max-width: 62%;
   }
 `;
 
