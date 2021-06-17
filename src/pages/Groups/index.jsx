@@ -7,12 +7,11 @@ import Form from "../../components/Form";
 import Input from "../../components/Input";
 import SelectInput from "../../components/SelectInput";
 import ContainerCard from "../../components/ContainerCard";
-import IconsGroups from '../../components/IconsGroups'
+import IconsGroups from "../../components/IconsGroups";
 import GroupIcon from "@material-ui/icons/Group";
 import SearchIcon from "@material-ui/icons/Search";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
-import ImageGroup from "../../assets/img/image_group.svg";
 import CloseIcon from "@material-ui/icons/Close";
 import DoneIcon from "@material-ui/icons/Done";
 import {
@@ -52,6 +51,7 @@ const Groups = () => {
   const [confirmExit, setConfirmExit] = useState(false);
   const [showFormGoal, setShowFormGoal] = useState(false);
   const [showFormActivity, setShowFormActivity] = useState(false);
+  const [showFormGroup, setShowFormGroup] = useState(false);
   const { token, userGroups, getGroups, getProfile, hasGroup } = useUser();
   const {
     createGroup,
@@ -67,6 +67,7 @@ const Groups = () => {
   const schema = yup.object().shape({
     name: yup.string().min(3, "Mínimo de 3 caracteres"),
     description: yup.string().min(6, "Mínimo de 6 caracteres"),
+    category: yup.string(),
     goalTitle: yup.string().max(50, "Máximo de 50 caracteres"),
     difficulty: yup.string(),
     activityTitle: yup.string().max(50, "Máximo de 50 caracteres"),
@@ -118,6 +119,25 @@ const Groups = () => {
     },
   ];
 
+  const categoryOptions = [
+    {
+      id: "DevHealthy-Saúde",
+      label: "Saúde",
+    },
+    {
+      id: "DevHealthy-Hobby",
+      label: "Hobby",
+    },
+    {
+      id: "DevHealthy-Estudo",
+      label: "Estudo",
+    },
+    {
+      id: "DevHealthy-Culinária",
+      label: "Culinária",
+    },
+  ];
+
   const handleToogle = (e) => {
     setIsOpened(e.currentTarget);
   };
@@ -134,10 +154,6 @@ const Groups = () => {
   const selectGroup = (id) => {
     getAGroup(id);
     setIsOpened(null);
-  };
-
-  const submitGroup = (data) => {
-    createGroup(data);
   };
 
   const handleConfirm = () => {
@@ -178,6 +194,22 @@ const Groups = () => {
     handleFormActivity();
   };
 
+  const handleFormGroup = () => {
+    reset();
+    setShowFormGroup(!showFormGroup);
+    setOpenOptions(null);
+  };
+
+  const submitGroup = (data) => {
+    const groupData = {
+      name: data.name,
+      description: data.description,
+      category: data.category,
+    };
+    createGroup(groupData);
+    handleFormGroup();
+  };
+
   const handleLeave = (id) => {
     leaveGroup(id);
     getAGroup(userGroups[0].id);
@@ -200,7 +232,11 @@ const Groups = () => {
               <GroupContainer>
                 <ButtonContainer>
                   <GroupCardContainer onClick={handleToogle}>
-                    <IconsGroups category={actualGroup.category} alt={actualGroup.name} modal />
+                    <IconsGroups
+                      category={actualGroup.category}
+                      alt={actualGroup.name}
+                      modal
+                    />
                     <p>{actualGroup.name}</p>
                     <ArrowDropDownIcon />
                   </GroupCardContainer>
@@ -243,7 +279,7 @@ const Groups = () => {
                   <MenuItem onClick={handleConfirm}>
                     <ExitToAppIcon /> Sair do grupo
                   </MenuItem>
-                  <MenuItem>
+                  <MenuItem onClick={handleFormGroup}>
                     <AddCircleOutlineIcon /> Criar grupo
                   </MenuItem>
                   <MenuItem>
@@ -387,6 +423,51 @@ const Groups = () => {
             />
           </div>
         </Form>
+      </Backdrop>
+
+      <Backdrop open={showFormGroup}>
+        <FormProvider {...methods}>
+          <Form onSubmit={handleSubmit(submitGroup)} autoComplete="off">
+            <Input
+              label="Título"
+              register={register}
+              name="name"
+              error={!!errors.name}
+              errorMsg={errors.name?.message}
+              pinkScheme
+              isValidated
+            />
+
+            <SelectInput
+              name="category"
+              title="Categoria"
+              label="Categoria"
+              options={categoryOptions}
+              required
+              style={{ width: 200 }}
+            />
+
+            <Input
+              label="Descrição"
+              register={register}
+              name="description"
+              error={!!errors.description}
+              errorMsg={errors.description?.message}
+              pinkScheme
+              isValidated
+            />
+            <div style={{ display: "flex", gap: 8 }}>
+              <FloatButton
+                title="Cancelar"
+                icon={CloseIcon}
+                color="primary"
+                greenIcon
+                onClick={handleFormGroup}
+              />
+              <FloatButton title="Criar Grupo" icon={DoneIcon} type="submit" />
+            </div>
+          </Form>
+        </FormProvider>
       </Backdrop>
     </>
   );

@@ -15,7 +15,10 @@ export const UserGroupsProvider = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((response) => setHasGroup(true))
+      .then((response) => {
+        setHasGroup(true);
+        getGroups();
+      })
       .catch((error) => console.log(error));
   };
 
