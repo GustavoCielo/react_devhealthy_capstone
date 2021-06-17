@@ -86,11 +86,7 @@ export const UserGroupsProvider = ({ children }) => {
       .catch((error) => console.log(error));
   };
 
-<<<<<<< HEAD
   const updateGoal = (goalId, groupId, members, howMuch) => {
-=======
-  const updateGoal = (goalId, groupId, members) => {
->>>>>>> 37c965727d354ef2ee53d1b868c95be98a4682f0
     const goalsData = JSON.parse(localStorage.getItem("@Dev:goals")) || [];
 
     if (!goalsData.find((user) => user.user === id)) {
