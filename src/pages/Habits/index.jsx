@@ -2,26 +2,31 @@ import { useEffect, useState } from "react";
 import { Redirect } from "react-router";
 import { useForm, FormProvider } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Hidden } from "@material-ui/core";
 import { useUser } from "../../contexts/User";
-import { useModal } from "../../contexts/Modal";
-import { Container, Form, HabitContainer, NoHabits } from "./style";
+import { Container, HabitContainer, NoHabits } from "./style";
 import * as yup from "yup";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import StarRateIcon from "@material-ui/icons/StarRate";
 import FullContainer from "../../components/FullContainer";
 import Header from "../../components/Header";
 import ContainerDashboard from "../../components/ContainerDashboard";
-import Modal from "../../components/Modal";
+import CloseIcon from "@material-ui/icons/Close";
+import DoneIcon from "@material-ui/icons/Done";
+import Backdrop from "../../components/Backdrop";
+import Form from "../../components/Form";
+import FloatButton from "../../components/FloatButton";
 import Input from "../../components/Input";
 import SelectInput from "../../components/SelectInput";
 import Button from "../../components/Button";
 import HabitCard from "../../components/HabitCard";
+import MobileHabitCard from "../../components/MobileHabitCard";
 import Loader from "../../components/Loader";
 
 const Habits = () => {
-  const { id, createHabit, getHabits, habits, token, getProfile } = useUser();
-  const { handleModal } = useModal();
+  const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const { id, createHabit, getHabits, habits, token, getProfile } = useUser();
 
   useEffect(() => {
     if (token) {
@@ -92,6 +97,11 @@ const Habits = () => {
     },
   ];
 
+  const handleToogle = () => {
+    setOpen(!open);
+    reset();
+  };
+
   const onSubmit = (data) => {
     const habitData = {
       title: data.title,
@@ -103,7 +113,7 @@ const Habits = () => {
       user: id,
     };
     createHabit(habitData);
-    handleModal();
+    handleToogle();
     reset();
   };
 
@@ -117,7 +127,7 @@ const Habits = () => {
       <ContainerDashboard>
         <Container>
           <Button
-            onClick={handleModal}
+            onClick={handleToogle}
             startIcon={<AddCircleIcon />}
             className="btnAddHabit"
           >
@@ -134,7 +144,12 @@ const Habits = () => {
                   .filter((habit) => habit.achieved === false)
                   .map((habit) => (
                     <li key={habit.id}>
-                      <HabitCard habit={habit} />
+                      <Hidden only="xs">
+                        <HabitCard habit={habit} />
+                      </Hidden>
+                      <Hidden smUp>
+                        <MobileHabitCard habit={habit} />
+                      </Hidden>
                     </li>
                   ))}
               </HabitContainer>
@@ -147,7 +162,7 @@ const Habits = () => {
         </Container>
       </ContainerDashboard>
 
-      <Modal>
+      <Backdrop open={open}>
         <FormProvider {...methods}>
           <Form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
             <Input
@@ -157,6 +172,7 @@ const Habits = () => {
               errorMsg={errors.title?.message}
               name="title"
               isValidated
+              pinkScheme
             />
 
             <SelectInput
@@ -165,6 +181,7 @@ const Habits = () => {
               label="Categoria"
               options={categoryOptions}
               required
+              style={{ width: 200 }}
             />
             <SelectInput
               name="difficulty"
@@ -173,14 +190,22 @@ const Habits = () => {
               label="Dificuldade"
               options={difficultyOptions}
               required
+              style={{ width: 200 }}
             />
 
-            <Button type="submit" color="secondary">
-              Adicionar
-            </Button>
+            <div style={{ display: "flex", gap: 8 }}>
+              <FloatButton
+                greenIcon
+                onClick={handleToogle}
+                color="primary"
+                title="Cancelar"
+                icon={CloseIcon}
+              />
+              <FloatButton type="submit" title="Adicionar" icon={DoneIcon} />
+            </div>
           </Form>
         </FormProvider>
-      </Modal>
+      </Backdrop>
     </FullContainer>
   );
 };

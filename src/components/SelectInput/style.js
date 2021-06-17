@@ -8,4 +8,9 @@ export const useStyles = makeStyles({
       color: "#E365C1",
     },
   },
+  container: {
+    "& svg": {
+      color: "#E365C1",
+    },
+  },
 });

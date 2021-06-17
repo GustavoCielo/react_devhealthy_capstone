@@ -32,15 +32,14 @@ export const UserProvider = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((response) =>{
-        setUserGroups(response.data)
+      .then((response) => {
+        setUserGroups(response.data);
         if (!!response.data[0]) {
           setHasGroup(true);
-
         } else {
           setHasGroup(false);
         }
-      } )
+      })
       .catch((error) => console.log(error));
   };
 
@@ -109,6 +108,10 @@ export const UserProvider = ({ children }) => {
       findHabit.achieved += 5;
       const achieved = findHabit.achieved;
 
+      if (achieved === 100) {
+        toast.success("Parabéns, você adquiriu um hábito!");
+      }
+
       const data = {
         how_much_achieved: achieved,
         achieved: achieved === 100 ? true : false,
@@ -154,7 +157,7 @@ export const UserProvider = ({ children }) => {
         updateHabit,
         deleteHabit,
         hasGroup,
-        setHasGroup
+        setHasGroup,
       }}
     >
       {children}
