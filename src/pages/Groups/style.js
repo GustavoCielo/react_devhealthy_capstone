@@ -85,13 +85,13 @@ export const NothingToShow = styled.div`
 export const GoalsContainer = styled.ul`
   overflow: hidden scroll;
 
-  &::-webkit-scrollbar {
+  &:-webkit-scrollbar {
     width: 0.25rem;
   }
-  &::-webkit-scrollbar-track {
+  &:-webkit-scrollbar-track {
     background-color: #fafafa;
   }
-  &::-webkit-scrollbar-thumb {
+  &:-webkit-scrollbar-thumb {
     background-color: #e2b6cf;
   }
 `;
