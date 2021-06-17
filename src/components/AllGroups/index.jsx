@@ -29,7 +29,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import AddIcon from "@material-ui/icons/Add";
 import Form from "../Form";
 import SelectInput from "../../components/SelectInput";
-import IconsGroups from '../../components/IconsGroups'
+import IconsGroups from "../../components/IconsGroups";
 import { useUser } from "../../contexts/User";
 
 const AllGroups = () => {
@@ -44,11 +44,11 @@ const AllGroups = () => {
     setInputSearch,
     getGroupsByCategory,
   } = useGroups();
-  const {getGroups} = useUser()
+  const { getGroups } = useUser();
   const { isVisible, handleModal } = useModal();
   const [modalInfo, setModalInfo] = useState();
   const [open, setOpen] = useState(false);
-  const { createGroup } = useUserGroups();
+  const { createGroup, getAGroup } = useUserGroups();
   const [isVisibleCreateGroup, setIsVisibleCreateGroup] = useState(false);
 
   const schema = yup.object().shape({
@@ -114,6 +114,7 @@ const AllGroups = () => {
     conEnterGroup(id);
     handleModal();
     getGroups();
+    getAGroup(id);
   };
 
   return (
@@ -228,7 +229,7 @@ const AllGroups = () => {
           <InternContainer>
             <div className="Header">
               <figure>
-                <IconsGroups category={modalInfo.category} modal/>
+                <IconsGroups category={modalInfo.category} modal />
               </figure>
               <h4>{modalInfo.name}</h4>
             </div>
