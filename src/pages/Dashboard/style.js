@@ -31,6 +31,7 @@ export const List = styled.div`
   width: 100%;
   height: 100%;
   overflow-y: scroll;
+  flex-grow: 1;
 
   &::-webkit-scrollbar {
     width: 0.25rem;
@@ -69,18 +70,16 @@ export const LinkStyle = styled(Link)`
 `;
 
 export const NullGoals = styled.div`
-  width: 100%;
   height: 90%;
+  min-height: 250px;
+  max-height: 360px;
   background: url(${bgImage}) no-repeat center;
   background-size: contain;
   text-align: center;
 
-  @media (max-width: 600px) {
-    min-height: 200px;
-  }
-
   p {
-    text-shadow: 0.5px 0.5px #e396df;
+    font-size: 1.2rem;
+    text-shadow: 1px 1px #e396df;
     font-weight: bold;
   }
 `;
