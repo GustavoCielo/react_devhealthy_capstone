@@ -72,7 +72,7 @@ const Groups = () => {
     goalTitle: yup.string().max(50, "Máximo de 50 caracteres"),
     difficulty: yup.string(),
     activityTitle: yup.string().max(50, "Máximo de 50 caracteres"),
-    realization_time: yup.string(),
+    realization_time: yup.date().min(new Date().toDateString(), "Data inválida"),
   });
 
   const methods = useForm({
@@ -408,7 +408,9 @@ const Groups = () => {
             type="datetime-local"
             {...register("realization_time")}
             required
-            defaultValue="2021-06-16T10:30"
+            error={!!errors.realization_time}
+            helperText={errors.realization_time?.message}
+            defaultValue=""
             className={classes.textField}
             InputLabelProps={{
               shrink: true,
